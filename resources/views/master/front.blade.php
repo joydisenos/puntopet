@@ -27,6 +27,8 @@
 
   <!-- Main Stylesheet File -->
   <link href="{{ asset('css/style.css')}}" rel="stylesheet">
+
+  @yield('header')
     
 <style>
     .ocultar{
@@ -72,15 +74,15 @@
                                     
                                     
                                     <li class="">
-                                        <a class="nav-link" href="#about">Nosotros</a>
+                                        <a class="nav-link" href="{{ (URL::current() == url('/')) ? '#about' : url('/#about') }}">Nosotros</a>
                                     </li>
 
                                     <li class="">
-                                        <a class="scrollto" href="#contact">Contacto</a>
+                                        <a class="scrollto" href="{{ (URL::current() == url('/')) ? '#contact' : url('/#contact') }}">Contacto</a>
                                     </li>
 
                                     <li class="">
-                                        <a href="#">Tiendas</a>
+                                        <a href="{{ route('tiendas') }}">Tiendas</a>
                                     </li>
                                     
                                     @guest

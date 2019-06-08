@@ -22,6 +22,7 @@ Route::get('/nosotros', 'HomeController@nosotros')->name('nosotros');
 Route::get('/nosotros/{pagina}', 'HomeController@nosotros')->name('nosotros.pagina');
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/tiendas', 'HomeController@tiendas')->name('tiendas');
 
 Route::prefix('usuario')->group( function () {
 		Route::get('/favoritos', 'UsuarioController@favoritos')->name('usuario.favoritos');

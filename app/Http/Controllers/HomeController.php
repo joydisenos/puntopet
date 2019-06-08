@@ -24,4 +24,9 @@ class HomeController extends Controller
 
         return view('legales' , compact('legal'));
     }
+
+    public function tiendas()
+    {
+        return view('tiendas');
+    }
 }
