@@ -22,6 +22,30 @@ class NegocioController extends Controller
     	return view('negocio.crearproducto');
     }
 
+    public function registrarNegocio(Request $request)
+    {
+        $validatedData = $request->validate([
+        'nombre' => 'required|max:255',
+        'direccion' => 'required',
+        'descripcion' => 'required',
+        ]);
+
+        $data = $request->all();
+        $data['user_id'] = Auth::user()->id;
+
+        if( $request->hasFile('foto_local') )
+        {
+            $rutaLocal = 'archivos/'. Auth::user()->id;
+            $fotoLocal = $request->file('foto_local');
+            $nombreFotoLocal = $fotoLocal->getClientOriginalName();
+            $request->file('foto_local')->storeAs($rutaLocal, $nombreFotoLocal, 'public');
+        }
+
+        $negocio = Negocio::create($data);
+
+        return redirect()->back()->with('status' , 'Negocio '. title_case($negocio->nombre) . ' creado con éxito');
+    }
+
     public function guardarProducto(Request $request)
     {
     	$validatedData = $request->validate([
@@ -85,8 +109,6 @@ class NegocioController extends Controller
 
     public function datos()
     {
-        $negocio = Negocio::firstOrCreate(['user_id' => Auth::user()->id]);
-
         return view('negocio.datos');
     }
 
@@ -108,14 +130,6 @@ class NegocioController extends Controller
             $request->file('foto_perfil')->storeAs($rutaFoto, $nombreFoto, 'public');
         }
 
-        if( $request->hasFile('foto_local') )
-        {
-            $rutaLocal = 'archivos/'. Auth::user()->id;
-            $fotoLocal = $request->file('foto_local');
-            $nombreFotoLocal = $fotoLocal->getClientOriginalName();
-            $request->file('foto_local')->storeAs($rutaLocal, $nombreFotoLocal, 'public');
-        }
-
         $user = Auth::user();
         if( $request->password != null )
         {
@@ -127,17 +141,41 @@ class NegocioController extends Controller
         }
         $user->save();
 
-        $negocio = Negocio::firstOrCreate(['user_id' => Auth::user()->id]);
-        $negocio->descripcion = $request->descripcion_negocio;
-        if( $request->hasFile('foto_local') )
-        {
-            $negocio->foto_local = $nombreFotoLocal;
-        }
-        $negocio->save();
-
         return redirect()->back()->with('status' , 'Datos Actualizados');
 
 
+    }
+
+    public function editarNegocio($id)
+    {
+        $negocio = Negocio::findOrFail($id);
+
+        return view('negocio.editarnegocio' , compact('negocio'));
+    }
+
+    public function actualizarNegocio(Request $request , $id)
+    {
+        $validatedData = $request->validate([
+            'nombre' => 'required',
+            'direccion' => 'required',
+            'descripcion' => 'required',
+            ]);
+
+        $data = $request->all();
+        $data['slug'] = str_slug($request->nombre);
+
+        if( $request->hasFile('foto_local') )
+        {
+            $rutaFoto = 'archivos/'. Auth::user()->id;
+            $foto = $request->file('foto_local');
+            $nombreFoto = $foto->getClientOriginalName();
+            $request->file('foto_local')->storeAs($rutaFoto, $nombreFoto, 'public');
+            $data['foto_local'] = $nombreFoto;
+        }
+
+        $negocio = Negocio::findOrFail($id)->update($data);
+
+        return redirect()->route('negocio.datos')->with('status' , 'Datos actualizados');
     }
 
     public function ventas()

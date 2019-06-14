@@ -18,7 +18,7 @@
 
 					<div class="row mb-4">
 						<div class="col text-right">
-							<button type="submit" class="btn btn-danger">
+							<button type="submit" class="btn btn-primary">
 								Actualizar
 							</button>
 						</div>
@@ -67,58 +67,28 @@
 
 					<div class="row mb-4">
 						<div class="col"><h6>
-							Datos del Negocio
+							Datos de Negocios Registrados
 						</h6></div>
+						<div class="col text-right">
+							<a href="#" class="btn btn-primary" data-toggle="modal" data-target="#agregar_negocio">Crear Negocio</a>
+						</div>
 					</div>
+
+					@foreach( Auth::user()->negocios as $negocio )
 
 					<div class="row mb-4">
 						<div class="col-md-4">
-							<p>Nombre del Negocio</p>
+							<p>{{ $negocio->nombre }}</p>
 						</div>
 						<div class="col">
-							<input type="text" name="nombre_negocio" value="{{ Auth::user()->nombre_negocio }}" class="form-control">
+							<p>Clicks registrados: #</p>
+						</div>
+						<div class="col text-right">
+							<a href="{{ route('negocio.editar' , $negocio->id) }}" class="btn btn-primary">Modificar</a>
 						</div>
 					</div>
 
-					<div class="row mb-4">
-						<div class="col-md-4">
-							<p>Dirección</p>
-						</div>
-						<div class="col">
-							<input type="text" name="direccion_negocio" value="{{ Auth::user()->direccion }}" class="form-control">
-						</div>
-					</div>
-
-					<div class="row mb-4">
-						<div class="col-md-4">
-							<p>Breve descripción</p>
-						</div>
-						<div class="col">
-							<textarea name="descripcion_negocio" id="" class="form-control" cols="30" rows="10">{{ Auth::user()->negocio->descripcion }}</textarea>
-						</div>
-					</div>
-
-					<div class="row mb-4">
-						<div class="col-md-4">
-							<p>Foto del Negocio</p>
-						</div>
-						<div class="col">
-							<input type="file" name="foto_local" class="form-control">
-						</div>
-					</div>
-
-					@if(Auth::user()->negocio->foto_local != null)
-
-					<div class="row mb-4">
-						<div class="col-md-4">
-							
-						</div>
-						<div class="col">
-							<img src="{{ asset( 'storage/archivos/' . Auth::user()->id . '/' . Auth::user()->negocio->foto_local) }}" class="img-fluid" alt="">
-						</div>
-					</div>
-
-					@endif
+					@endforeach
 
 					
 
@@ -131,4 +101,46 @@
 		</div>
 	</div>
 </div>
+
+<!-- Modal -->
+				<div class="modal fade" id="agregar_negocio" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+				  <div class="modal-dialog modal-dialog-centered" role="document">
+				    <div class="modal-content">
+				      <div class="modal-header background-primary">
+				        <h6 class="modal-title text-white" id="exampleModalLongTitle">Agregar Negocio</h6>
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				          <span aria-hidden="true">&times;</span>
+				        </button>
+				      </div>
+				      <div class="modal-body">
+
+				      	<form action="{{ route('negocio.agregar') }}" method="post">
+				      		@csrf
+
+				        <div class="row justify-content-center mb-3">
+				        	<div class="col-10">
+				        		
+				        		@component('components.negocios')
+				        		@slot('negocio' , null)
+				        		@endcomponent
+				        	</div>
+				        </div>
+
+				       
+
+				        <div class="row justify-content-center mb-3">
+				        	<div class="col-10">
+				        		<button class="btn btn-primary btn-block">
+				        			Agregar
+				        		</button>
+				        	</div>
+				        </div>
+
+				        </form>
+
+				      </div>
+				     
+				    </div>
+				  </div>
+				</div>
 @endsection

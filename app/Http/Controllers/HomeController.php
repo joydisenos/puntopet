@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Legal;
+use App\Negocio;
 
 class HomeController extends Controller
 {
@@ -27,6 +28,9 @@ class HomeController extends Controller
 
     public function tiendas()
     {
-        return view('tiendas');
+        $tiendasRef = new Negocio();
+        $tiendas = $tiendasRef->tiendas();
+
+        return view('tiendas' , compact('tiendas'));
     }
 }

@@ -35,6 +35,9 @@ Route::prefix('usuario')->group( function () {
 
 Route::prefix('panel')->group( function () {
 		Route::get('/productos', 'NegocioController@productos')->name('negocio.productos');
+		Route::get('/editar-negocio/{id}', 'NegocioController@editarNegocio')->name('negocio.editar');
+		Route::post('/actualizar-negocio/{id}', 'NegocioController@actualizarNegocio')->name('negocio.actualizar');
+		Route::post('/registrar/negocio', 'NegocioController@registrarNegocio')->name('negocio.agregar');
 		Route::get('/ventas', 'NegocioController@ventas')->name('negocio.ventas');
 		Route::get('/datos', 'NegocioController@datos')->name('negocio.datos');
 		Route::post('/datos/actualizar', 'NegocioController@actualizarDatos')->name('negocio.actualizar.datos');

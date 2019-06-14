@@ -46,60 +46,20 @@
 		<div class="col pt-4 pb-4 mt-4 mb-4">
 			
 			<div class="row">
-				<div class="col-md-4 m-0 p-0 p-md-1">
+				
+			@foreach($tiendas as $tienda)
+				<div class="col-md-3 m-0 p-0 p-md-1">
 					<a href="#">
 					<div class="fondo-foto" style="background-image: url('{{ asset('img/jannes-jacobs-683471-unsplash.jpg') }}');">
 						<div class="fondo">
-							<h3>Nombre de la tienda</h3>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec sem ac massa mollis finibus. Aliquam molestie bibendum lacinia.</p>
+							<h3>{{ $tienda->nombre }}</h3>
+							<p>{{ str_limit($tienda->descripcion , 300) }}</p>
 						</div>
 					</div>
 					</a>
 				</div>	
+			@endforeach
 
-				<div class="col-md-4 m-0 p-0 p-md-1">
-					<a href="#">
-					<div class="fondo-foto" style="background-image: url('{{ asset('img/jannes-jacobs-683471-unsplash.jpg') }}');">
-						<div class="fondo">
-							<h3>Nombre de la tienda</h3>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec sem ac massa mollis finibus. Aliquam molestie bibendum lacinia.</p>
-						</div>
-					</div>
-					</a>
-				</div>	
-
-				<div class="col-md-4 m-0 p-0 p-md-1">
-					<a href="#">
-					<div class="fondo-foto" style="background-image: url('{{ asset('img/jannes-jacobs-683471-unsplash.jpg') }}');">
-						<div class="fondo">
-							<h3>Nombre de la tienda</h3>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec sem ac massa mollis finibus. Aliquam molestie bibendum lacinia.</p>
-						</div>
-					</div>
-					</a>
-				</div>	
-
-				<div class="col-md-4 m-0 p-0 p-md-1">
-					<a href="#">
-					<div class="fondo-foto" style="background-image: url('{{ asset('img/jannes-jacobs-683471-unsplash.jpg') }}');">
-						<div class="fondo">
-							<h3>Nombre de la tienda</h3>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec sem ac massa mollis finibus. Aliquam molestie bibendum lacinia.</p>
-						</div>
-					</div>
-					</a>
-				</div>	
-
-				<div class="col-md-4 m-0 p-0 p-md-1">
-					<a href="#">
-					<div class="fondo-foto" style="background-image: url('{{ asset('img/jannes-jacobs-683471-unsplash.jpg') }}');">
-						<div class="fondo">
-							<h3>Nombre de la tienda</h3>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec sem ac massa mollis finibus. Aliquam molestie bibendum lacinia.</p>
-						</div>
-					</div>
-					</a>
-				</div>	
 			</div>
 
 		</div>

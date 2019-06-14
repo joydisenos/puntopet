@@ -13,7 +13,7 @@
 
 				<div class="row">
 					<div class="col mb-4 text-right">
-						<a href="{{ route('negocio.crear.producto') }}" class="btn btn-danger">
+						<a href="{{ route('negocio.crear.producto') }}" class="btn btn-primary">
 							Nuevo Producto
 						</a>
 					</div>

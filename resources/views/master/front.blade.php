@@ -466,6 +466,20 @@
                             </div>
                         </div>
 
+                         <div class="form-group row justify-content-center">
+                           
+
+                            <div class="col-md-10">
+                                <input id="descripcion_negocio" type="text" class="form-control @error('descripcion_negocio') is-invalid @enderror" name="descripcion_negocio" value="{{ old('descripcion_negocio') }}" placeholder="Descripción de su Negocio" required autocomplete="descripcion_negocio" autofocus>
+
+                                @error('descripcion_negocio')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
                         <div class="form-group row justify-content-center">
                            
 

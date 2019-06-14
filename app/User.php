@@ -56,8 +56,8 @@ class User extends Authenticatable
         return $this->hasMany(Direccion::class , 'user_id');
     }
 
-    public function negocio()
+    public function negocios()
     {
-        return $this->hasOne(Negocio::class , 'user_id');
+        return $this->hasMany(Negocio::class , 'user_id');
     }
 }

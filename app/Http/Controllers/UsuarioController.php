@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\User;
 use App\Direccion;
+use App\Negocio;
 
 class UsuarioController extends Controller
 {
@@ -48,6 +49,14 @@ class UsuarioController extends Controller
 
         $user = User::create($datos);
         $user->assignRole('negocio');
+
+        $negociodatos['user_id'] = $user->id;
+        $negociodatos['nombre'] = $request->nombre_negocio;
+        $negociodatos['slug'] = str_slug($request->nombre_negocio);
+        $negociodatos['descripcion'] = $request->descripcion_negocio;
+        $negociodatos['direccion'] = $request->direccion;
+
+        $negocio = Negocio::create($negociodatos);
 
         Auth::login($user);
 
