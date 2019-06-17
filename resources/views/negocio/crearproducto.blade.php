@@ -12,6 +12,20 @@
 
 			<form action="{{ route('negocio.guardar.producto') }}" method="post" enctype="multipart/form-data">
 				@csrf
+				
+				<div class="row mb-4">
+					<div class="col">
+						<h5>Tienda</h5>
+					</div>
+					<div class="col">
+						<select name="negocio_id" class="form-control" required>
+								<option>Seleccione una tienda</option>
+							@foreach(Auth::user()->negocios as $negocio)
+								<option value="{{ $negocio->id }}">{{ $negocio->nombre }}</option>
+							@endforeach
+						</select>
+					</div>
+				</div>
 
 				<div class="row mb-4">
 					<div class="col"></div>
@@ -40,7 +54,7 @@
 
 				<div class="row mb-4">
 					<div class="col">
-						<button class="btn btn-danger">
+						<button class="btn btn-primary">
 							Crear
 						</button>
 					</div>

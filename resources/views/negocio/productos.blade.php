@@ -26,6 +26,7 @@
 								<thead>
 									<th>Imagen</th>
 									<th>Nombre</th>
+									<th>Tienda</th>
 									<th>Precio</th>
 									<th>Ventas</th>
 									<th>Estatus</th>
@@ -36,12 +37,13 @@
 									<tr>
 										<td>
 											@if($producto->foto == null)
-											<img src="{{ asset('images/logo-01.png') }}" style="max-width: 50px;" alt="Imagen {{ $producto->nombre }}">
+											<img src="{{ asset('images/paw.png') }}" style="max-width: 50px;" alt="Imagen {{ $producto->nombre }}">
 											@else
 											<img src="{{ asset('storage/archivos/' . Auth::user()->id . '/' . $producto->foto) }}" style="max-width: 50px;" alt="Imagen {{ $producto->nombre }}">
 											@endif
 										</td>
 										<td>{{ title_case($producto->nombre) }}</td>
+										<td>{{ title_case($producto->negocio->nombre) }}</td>
 										<td>{{ str_limit($producto->descripcion , 30) }}</td>
 										<td></td>
 										<td>{{ $producto->estatusProducto($producto->estatus) }}</td>

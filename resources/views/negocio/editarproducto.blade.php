@@ -15,6 +15,20 @@
 
 				<div class="row mb-4">
 					<div class="col">
+						<h5>Tienda</h5>
+					</div>
+					<div class="col">
+						<select name="negocio_id" class="form-control" required>
+								<option {{ $producto->negocio_id == null ? 'selected' : '' }}>Seleccione una tienda</option>
+							@foreach(Auth::user()->negocios as $negocio)
+								<option value="{{ $negocio->id }}" {{ $producto->negocio_id == $negocio->id? 'selected' : '' }}>{{ $negocio->nombre }}</option>
+							@endforeach
+						</select>
+					</div>
+				</div>
+
+				<div class="row mb-4">
+					<div class="col">
 						@if($producto->foto == null)
 						<img src="{{ asset('images/logo-01.png') }}" class="img-fluid" alt="Imagen {{ $producto->nombre }}">
 						@else
@@ -46,8 +60,8 @@
 
 				<div class="row mb-4">
 					<div class="col">
-						<button class="btn btn-danger">
-							Crear
+						<button class="btn btn-primary">
+							Actualizar
 						</button>
 					</div>
 				</div>

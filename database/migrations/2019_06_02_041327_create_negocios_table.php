@@ -20,6 +20,7 @@ class CreateNegociosTable extends Migration
             $table->string('slug')->nullable();
             $table->text('descripcion')->nullable();
             $table->text('direccion')->nullable();
+            $table->string('logo_local')->nullable();
             $table->string('foto_local')->nullable();
             $table->boolean('entrega_domicilio')->default(0);
             $table->boolean('entrega_local')->default(0);

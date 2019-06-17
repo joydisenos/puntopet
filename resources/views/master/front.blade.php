@@ -7,9 +7,8 @@
   <meta content="" name="keywords">
   <meta content="" name="description">
 
-  <!-- Favicons 
- 
-  -->
+  <!-- Favicons -->
+  <link rel="icon" href="{{asset('images/paw.png')}}" type="image/png" />
 
   <!-- Google Fonts --> 
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Montserrat:300,400,500,700" rel="stylesheet">

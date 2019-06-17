@@ -8,6 +8,7 @@ class Producto extends Model
 {
     protected $fillable = [
         'user_id', 
+        'negocio_id', 
         'foto', 
         'precio', 
         'nombre',
@@ -16,7 +17,12 @@ class Producto extends Model
 
     public function negocio()
     {
-    	return $this->belongsTo(User::class , 'user_id');
+    	return $this->belongsTo(Negocio::class , 'negocio_id');
+    }
+
+     public function user()
+    {
+        return $this->belongsTo(User::class , 'user_id');
     }
 
     public function estatusProducto($int)

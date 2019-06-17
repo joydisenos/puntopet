@@ -22,4 +22,14 @@ class Negocio extends Model
     				->where('estatus' , 1)
     				->get();
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class );
+    }    
+
+    public function productos()
+    {
+        return $this->hasMany(Producto::class );
+    }
 }

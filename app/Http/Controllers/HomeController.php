@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use App\Legal;
 use App\Negocio;
 
@@ -32,5 +33,14 @@ class HomeController extends Controller
         $tiendas = $tiendasRef->tiendas();
 
         return view('tiendas' , compact('tiendas'));
+    }
+
+    public function tienda($slug)
+    {
+        $tienda = Negocio::where('slug' , $slug)->first();
+        $carrito = Cart::content();
+        $productos = $tienda->productos;
+
+        return view('tienda' , compact('tienda' , 'carrito' , 'productos'));
     }
 }
