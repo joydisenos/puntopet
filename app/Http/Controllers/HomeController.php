@@ -40,7 +40,8 @@ class HomeController extends Controller
         $tienda = Negocio::where('slug' , $slug)->first();
         $carrito = Cart::content();
         $productos = $tienda->productos;
+        $total = 0;
 
-        return view('tienda' , compact('tienda' , 'carrito' , 'productos'));
+        return view('tienda' , compact('tienda' , 'carrito' , 'productos','total'));
     }
 }

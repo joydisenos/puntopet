@@ -24,6 +24,10 @@ Route::get('/nosotros/{pagina}', 'HomeController@nosotros')->name('nosotros.pagi
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/tiendas', 'HomeController@tiendas')->name('tiendas');
 Route::get('/tienda/{slug}', 'HomeController@tienda')->name('ver.tienda');
+Route::get('/agregarcarro/{id}', 'UsuarioController@agregarCarrito')->name('agregar.carrito');
+Route::post('/tienda/{slug}/pago', 'UsuarioController@pago')->name('pago')->middleware('auth');
+
+Route::get('/tienda/{slug}/ordenar', 'UsuarioController@ordenar')->name('ordenar')->middleware('auth');
 
 Route::prefix('usuario')->group( function () {
 		Route::get('/favoritos', 'UsuarioController@favoritos')->name('usuario.favoritos');
@@ -40,12 +44,14 @@ Route::prefix('panel')->group( function () {
 		Route::post('/actualizar-negocio/{id}', 'NegocioController@actualizarNegocio')->name('negocio.actualizar');
 		Route::post('/registrar/negocio', 'NegocioController@registrarNegocio')->name('negocio.agregar');
 		Route::get('/ventas', 'NegocioController@ventas')->name('negocio.ventas');
+		Route::get('/ventas/{slug}', 'NegocioController@ventasNegocio')->name('negocio.ventas.negocio');
 		Route::get('/datos', 'NegocioController@datos')->name('negocio.datos');
 		Route::post('/datos/actualizar', 'NegocioController@actualizarDatos')->name('negocio.actualizar.datos');
 		Route::get('/crear/producto', 'NegocioController@crearProducto')->name('negocio.crear.producto');
 		Route::get('/modificar/producto/{id}', 'NegocioController@modificarProducto')->name('negocio.modificar.producto');
 		Route::post('/actualizar/producto/{id}', 'NegocioController@actualizarProducto')->name('negocio.actualizar.producto');
 		Route::post('/guardar/producto', 'NegocioController@guardarProducto')->name('negocio.guardar.producto');
+		Route::get('/estatus/orden/{id}/{estatus}', 'NegocioController@estatusOrden')->name('negocio.estatus.orden');
 	});
 
 Route::prefix('admin')->group( function () {

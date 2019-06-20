@@ -32,4 +32,9 @@ class Negocio extends Model
     {
         return $this->hasMany(Producto::class );
     }
+
+    public function ventas()
+    {
+        return $this->hasMany(Orden::class , 'negocio_id');
+    }
 }

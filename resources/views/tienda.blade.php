@@ -102,7 +102,7 @@
 						  <div class="card-body">
 						    <h6>{{ title_case($producto->nombre) }}</h6>
 							<p>{{ $producto->descripcion }}</p>
-							<form action="#" method="get">
+							<form action="{{ route('agregar.carrito' , $producto->id) }}" method="get">
 								@csrf
 				
 								<h6>${{ number_format($producto->precio) }}</h6>
@@ -150,7 +150,7 @@
 				<div class="col-4 pt-4 pb-4 mt-4 mb-4 d-none d-lg-block">
 					<div class="row">
 						<div class="col text-center border p-4">
-							<h6 class="mb-4">Mi Pedido <span class="badge badge-danger">{{ $carrito->count() > 0 ? ' '. $carrito->count() : ''}}</span></h6>
+							<h6 class="mb-4">Mi Pedido <span class="badge badge-primary background-primary">{{ $carrito->count() > 0 ? ' '. $carrito->count() : ''}}</span></h6>
 									@if($carrito->count() == 0)
 								<div class="contenedor-carrito mx-auto">
 									<img src="{{ asset('images/paw.png') }}" class="img-fluid img-carrito mb-4" alt="">
@@ -181,7 +181,7 @@
 
 									<div class="row">
 										<div class="col text-center">
-											<a href="{{ route('ordenar' , [$tienda->slug]) }}" class="btn btn-danger">Ordenar</a>
+											<a href="{{ route('ordenar' , [$tienda->slug]) }}" class="btn btn-primary">Ordenar</a>
 										</div>
 									</div>
 

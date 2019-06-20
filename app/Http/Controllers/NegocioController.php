@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Producto;
 use App\Negocio;
+use App\Orden;
 
 class NegocioController extends Controller
 {
@@ -146,6 +147,15 @@ class NegocioController extends Controller
 
     }
 
+    public function estatusOrden($id , $estatus)
+    {
+        $producto = Orden::findOrFail($id);
+        $producto->estatus = $estatus;
+        $producto->save();
+
+        return redirect()->back()->with('status' , 'Estatus actualizado');
+    }
+
     public function editarNegocio($id)
     {
         $negocio = Negocio::findOrFail($id);
@@ -180,6 +190,16 @@ class NegocioController extends Controller
 
     public function ventas()
     {
-        return view('negocio.ventas');
+        $negocios = Auth::user()->negocios;
+
+        return view('negocio.ventas' , compact('negocios'));
+    }
+
+    public function ventasNegocio($slug)
+    {
+        $negocio = Negocio::where('slug' , $slug)->first();
+        $ventas = $negocio->ventas;
+
+        return view('negocio.ventasnegocio' , compact('ventas'));
     }
 }
