@@ -44,8 +44,8 @@
 										</td>
 										<td>{{ title_case($producto->nombre) }}</td>
 										<td>{{ title_case($producto->negocio->nombre) }}</td>
-										<td>{{ str_limit($producto->descripcion , 30) }}</td>
-										<td></td>
+										<td>${{ number_format($producto->precio) }}</td>
+										<td>{{ $producto->ventas->count() }}</td>
 										<td>{{ $producto->estatusProducto($producto->estatus) }}</td>
 										<td>
 											<a href="{{ route('negocio.modificar.producto' , [$producto->id]) }}">modificar</a>

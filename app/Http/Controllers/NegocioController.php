@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Producto;
 use App\Negocio;
+use App\Hogar;
 use App\Orden;
 
 class NegocioController extends Controller
@@ -113,6 +114,20 @@ class NegocioController extends Controller
         return view('negocio.datos');
     }
 
+    public function verOrden($id)
+    {
+        $orden = Orden::findOrFail($id);
+
+        if($orden->negocio->user->id != Auth::user()->id)
+        {
+            return redirect()->back();
+        }else{
+
+            return view('negocio.orden' , compact('orden'));
+        }
+        
+    }
+
     public function actualizarDatos(Request $request)
     {
         if($request->password != null)
@@ -140,6 +155,7 @@ class NegocioController extends Controller
         {
             $user->foto_perfil = $nombreFoto;
         }
+        $user->telefono = $request->telefono;
         $user->save();
 
         return redirect()->back()->with('status' , 'Datos Actualizados');
@@ -163,6 +179,13 @@ class NegocioController extends Controller
         return view('negocio.editarnegocio' , compact('negocio'));
     }
 
+    public function editarHogar($id)
+    {
+        $hogar = Hogar::findOrFail($id);
+
+        return view('negocio.editarhogar' , compact('hogar'));
+    }
+
     public function actualizarNegocio(Request $request , $id)
     {
         $validatedData = $request->validate([
@@ -184,6 +207,31 @@ class NegocioController extends Controller
         }
 
         $negocio = Negocio::findOrFail($id)->update($data);
+
+        return redirect()->route('negocio.datos')->with('status' , 'Datos actualizados');
+    }
+
+    public function actualizarHogar(Request $request , $id)
+    {
+        $validatedData = $request->validate([
+            'nombre' => 'required',
+            'direccion' => 'required',
+            'descripcion' => 'required',
+            ]);
+
+        $data = $request->all();
+        $data['slug'] = str_slug($request->nombre);
+
+        if( $request->hasFile('foto_local') )
+        {
+            $rutaFoto = 'archivos/'. Auth::user()->id;
+            $foto = $request->file('foto_local');
+            $nombreFoto = $foto->getClientOriginalName();
+            $request->file('foto_local')->storeAs($rutaFoto, $nombreFoto, 'public');
+            $data['foto_local'] = $nombreFoto;
+        }
+
+        $hogar = Hogar::findOrFail($id)->update($data);
 
         return redirect()->route('negocio.datos')->with('status' , 'Datos actualizados');
     }

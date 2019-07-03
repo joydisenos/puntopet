@@ -16,6 +16,7 @@
 						<th>Orden</th>
 						<th>Usuario</th>
 						<th>Productos</th>
+						<th>Detalles</th>
 						<th>Envío</th>
 						<th>Pago</th>
 						<th>Estatus</th>
@@ -27,9 +28,10 @@
 							<td>{{ $venta->id }}</td>
 							<td>{{ $venta->user->nombre }}</td>
 							<td>{{ $venta->productos->count() }}</td>
+							<td><a href="{{ route('negocio.ver.orden' , $venta->id) }}" class="btn btn-primary"><i class="fa fa-eye"></i></a></td>
 							<td>{{ $venta->envio }}</td>
 							<td>{{ $venta->pago }}</td>
-							<td>{{ $venta->estatus }}</td>
+							<td>{{ $venta->verEstatus($venta->estatus) }}</td>
 							<td>
 								@if($venta->estatus == 1)
 								<a href="{{ route('negocio.estatus.orden' , [$venta->id , 2]) }}" class="btn btn-success"><i class="fa fa-check"></i></a>

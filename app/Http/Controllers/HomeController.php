@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use App\Legal;
 use App\Negocio;
+use App\Hogar;
 
 class HomeController extends Controller
 {
@@ -31,6 +32,14 @@ class HomeController extends Controller
     {
         $tiendasRef = new Negocio();
         $tiendas = $tiendasRef->tiendas();
+
+        return view('tiendas' , compact('tiendas'));
+    }
+
+    public function hogares()
+    {
+        $tiendasRef = new Hogar();
+        $tiendas = $tiendasRef->hogares();
 
         return view('tiendas' , compact('tiendas'));
     }

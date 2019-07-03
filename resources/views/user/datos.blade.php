@@ -43,6 +43,15 @@
 
 					<div class="row mb-4">
 						<div class="col-md-4">
+							<p>Teléfono</p>
+						</div>
+						<div class="col">
+							<input type="number" name="telefono" class="form-control" value="{{ Auth::user()->telefono }}">
+						</div>
+					</div>
+
+					<div class="row mb-4">
+						<div class="col-md-4">
 							<p>Cambiar Contraseña</p>
 						</div>
 						<div class="col">

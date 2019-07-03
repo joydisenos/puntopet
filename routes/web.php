@@ -23,6 +23,7 @@ Route::get('/nosotros/{pagina}', 'HomeController@nosotros')->name('nosotros.pagi
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/tiendas', 'HomeController@tiendas')->name('tiendas');
+Route::get('/hogares', 'HomeController@hogares')->name('hogares');
 Route::get('/tienda/{slug}', 'HomeController@tienda')->name('ver.tienda');
 Route::get('/agregarcarro/{id}', 'UsuarioController@agregarCarrito')->name('agregar.carrito');
 Route::post('/tienda/{slug}/pago', 'UsuarioController@pago')->name('pago')->middleware('auth');
@@ -40,11 +41,14 @@ Route::prefix('usuario')->group( function () {
 
 Route::prefix('panel')->group( function () {
 		Route::get('/productos', 'NegocioController@productos')->name('negocio.productos');
-		Route::get('/editar-negocio/{id}', 'NegocioController@editarNegocio')->name('negocio.editar');
-		Route::post('/actualizar-negocio/{id}', 'NegocioController@actualizarNegocio')->name('negocio.actualizar');
+		Route::get('/editar/negocio/{id}', 'NegocioController@editarNegocio')->name('negocio.editar');
+		Route::get('/editar/hogar/{id}', 'NegocioController@editarHogar')->name('hogar.editar');
+		Route::post('/actualizar/negocio/{id}', 'NegocioController@actualizarNegocio')->name('negocio.actualizar');
+		Route::post('/actualizar/hogar/{id}', 'NegocioController@actualizarHogar')->name('hogar.actualizar');
 		Route::post('/registrar/negocio', 'NegocioController@registrarNegocio')->name('negocio.agregar');
 		Route::get('/ventas', 'NegocioController@ventas')->name('negocio.ventas');
-		Route::get('/ventas/{slug}', 'NegocioController@ventasNegocio')->name('negocio.ventas.negocio');
+		Route::get('/ventas/negocio/{slug}', 'NegocioController@ventasNegocio')->name('negocio.ventas.negocio');
+		Route::get('/ventas/orden/{id}', 'NegocioController@verOrden')->name('negocio.ver.orden');
 		Route::get('/datos', 'NegocioController@datos')->name('negocio.datos');
 		Route::post('/datos/actualizar', 'NegocioController@actualizarDatos')->name('negocio.actualizar.datos');
 		Route::get('/crear/producto', 'NegocioController@crearProducto')->name('negocio.crear.producto');

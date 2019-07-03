@@ -25,6 +25,11 @@ class Producto extends Model
         return $this->belongsTo(User::class , 'user_id');
     }
 
+    public function ventas()
+    {
+        return $this->hasMany(Compra::class , 'producto_id');
+    }
+
     public function estatusProducto($int)
     {
         switch ($int) {

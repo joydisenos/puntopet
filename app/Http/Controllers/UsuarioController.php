@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use App\User;
+use App\Hogar;
 use App\Direccion;
 use App\Negocio;
 use App\Producto;
@@ -123,12 +124,11 @@ class UsuarioController extends Controller
         'ciudad' => 'required|max:255',
         'password' => 'required|min:6|confirmed|string',
         ]);
-
+        
         $datos = $request->except(['password_confirmation' , 'password']);
         $datos['password'] = Hash::make($request->password);
 
         $user = User::create($datos);
-        $user->assignRole('negocio');
 
         $negociodatos['user_id'] = $user->id;
         $negociodatos['nombre'] = $request->nombre_negocio;
@@ -136,7 +136,15 @@ class UsuarioController extends Controller
         $negociodatos['descripcion'] = $request->descripcion_negocio;
         $negociodatos['direccion'] = $request->direccion;
 
-        $negocio = Negocio::create($negociodatos);
+        if($request->rol == 1)
+        {
+            $user->assignRole('negocio');
+            $negocio = Negocio::create($negociodatos);
+        }else if($request->rol == 2)
+        {
+            $user->assignRole('hogar');
+            $hogar = Hogar::create($negociodatos);
+        }
 
         Auth::login($user);
 
@@ -169,6 +177,7 @@ class UsuarioController extends Controller
         {
             $user->foto_perfil = $nombreFoto;
         }
+        $user->telefono = $request->telefono;
         $user->save();
 
         return redirect()->back()->with('status' , 'Datos Actualizados');

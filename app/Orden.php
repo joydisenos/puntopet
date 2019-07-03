@@ -25,4 +25,31 @@ class Orden extends Model
     {
         return $this->belongsTo(User::class , 'user_id');
     }
+
+    public function negocio()
+    {
+        return $this->belongsTo(Negocio::class , 'negocio_id');
+    }
+
+    public function verEstatus($estatus)
+    {
+        switch ($estatus) {
+            case 1:
+                $estatus = "Pendiente";
+                break;
+
+            case 2:
+                $estatus = "Enviado/Entregado";
+                break;
+
+            case 0:
+                $estatus = "Rechazado";
+                break;
+            
+            default:
+                $estatus = "No definido";
+                break;
+        }
+        return $estatus;
+    }
 }

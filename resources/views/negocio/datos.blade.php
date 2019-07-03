@@ -49,6 +49,15 @@
 
 					<div class="row mb-4">
 						<div class="col-md-4">
+							<p>Teléfono</p>
+						</div>
+						<div class="col">
+							<input type="number" name="telefono" class="form-control" value="{{ Auth::user()->telefono }}">
+						</div>
+					</div>
+
+					<div class="row mb-4">
+						<div class="col-md-4">
 							<p>Cambiar Contraseña</p>
 						</div>
 						<div class="col">
@@ -64,7 +73,8 @@
 							<input type="password" name="password_confirmation" class="form-control">
 						</div>
 					</div>
-
+					
+					@role('negocio|dev')
 					<div class="row mb-4">
 						<div class="col"><h6>
 							Datos de Negocios Registrados
@@ -73,6 +83,17 @@
 							<a href="#" class="btn btn-primary" data-toggle="modal" data-target="#agregar_negocio">Crear Negocio</a>
 						</div>
 					</div>
+					@elserole('hogar|dev')
+					<div class="row mb-4">
+						<div class="col"><h6>
+							Datos de Hogares Registrados
+						</h6></div>
+						<div class="col text-right">
+							<a href="#" class="btn btn-primary" data-toggle="modal" data-target="#agregar_negocio">Crear Hogar</a>
+						</div>
+					</div>
+					@endrole
+
 
 					@foreach( Auth::user()->negocios as $negocio )
 
@@ -85,6 +106,22 @@
 						</div>
 						<div class="col text-right">
 							<a href="{{ route('negocio.editar' , $negocio->id) }}" class="btn btn-primary">Modificar</a>
+						</div>
+					</div>
+
+					@endforeach
+
+					@foreach( Auth::user()->hogares as $hogar )
+
+					<div class="row mb-4">
+						<div class="col-md-4">
+							<p>{{ $hogar->nombre }}</p>
+						</div>
+						<div class="col">
+							<p>Clicks registrados: #</p>
+						</div>
+						<div class="col text-right">
+							<a href="{{ route('hogar.editar' , $hogar->id) }}" class="btn btn-primary">Modificar</a>
 						</div>
 					</div>
 

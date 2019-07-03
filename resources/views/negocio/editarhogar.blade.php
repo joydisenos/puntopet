@@ -2,7 +2,7 @@
 @section('content')
 
 @component('components.header')
-    @slot('titulo' , 'Editar ' . title_case($negocio->nombre))
+    @slot('titulo' , 'Editar Hogar ' . title_case($hogar->nombre))
 @endcomponent
 
 <div class="container">
@@ -10,11 +10,11 @@
 		@include('includes.nav-side')
 		<div class="col pt-4 pb-4 mt-4 mb-4">
 
-			<form action="{{ route('negocio.actualizar' , [$negocio->id]) }}" method="post" enctype="multipart/form-data">
+			<form action="{{ route('hogar.actualizar' , [$hogar->id]) }}" method="post" enctype="multipart/form-data">
 				@csrf
 
 				@component('components.negocios')
-				@slot('negocio' , $negocio)
+				@slot('negocio' , $hogar)
 				@endcomponent
 
 				<div class="row mb-4">

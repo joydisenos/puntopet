@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Negocio extends Model
+class Hogar extends Model
 {
     protected $fillable = [
         'user_id',
@@ -16,7 +16,7 @@ class Negocio extends Model
         'foto_local',
     ];
 
-    public function tiendas()
+    public function hogares()
     {
     	return $this->where('nombre' , '!=' , null)
     				->where('descripcion' , '!=' , null)
@@ -27,15 +27,5 @@ class Negocio extends Model
     public function user()
     {
         return $this->belongsTo(User::class );
-    }    
-
-    public function productos()
-    {
-        return $this->hasMany(Producto::class );
-    }
-
-    public function ventas()
-    {
-        return $this->hasMany(Orden::class , 'negocio_id');
     }
 }
