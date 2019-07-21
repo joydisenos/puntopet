@@ -44,6 +44,44 @@
         background: rgba(0,0,0,0.6);
         width: 100%;
     }
+
+  .fondo-foto{
+    height: 300px;
+    width:100%;
+    background-size: cover;
+    background-position: center center;
+    position: relative;
+  }
+
+  .foto-footer{
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+  }
+  .fondo{
+    height: 100%;
+    width: 100%;
+    background: rgba(0,0,0,0.4);
+    color: #ffffff;
+    padding:30px;
+    transition: all ease .5s;
+  }
+  .fondo:hover{
+    background: rgba(0,0,0,0.7);
+  }
+  .fondo h3{
+    border-bottom: solid medium #18d26e;
+    font-weight: bold;
+  }
+  .fondo p{
+    opacity: 0;
+    transform: translateY(100px);
+    transition: all ease .5s;
+  }
+  .fondo:hover p{
+    opacity: 1;
+    transform: translateY(0);
+  }
 </style>
   <!-- =======================================================
     Theme Name: BizPage
@@ -117,11 +155,9 @@
                                                 <a href="{{ route('negocio.datos') }}"><i class="fa fa-info-circle mr-3" aria-hidden="true"></i> Perfil</a>
                                             </li>
                                             <li>
-                                                <a href="{{ route('negocio.datos') }}"><i class="fa fa-info-circle mr-3" aria-hidden="true"></i> Mascotas</a>
+                                                <a href="{{ route('negocio.mascotas') }}"><i class="fa fa-paw mr-3" aria-hidden="true"></i> Mascotas</a>
                                             </li>
-                                            <li>
-                                                <a href="{{ route('negocio.datos') }}"><i class="fa fa-info-circle mr-3" aria-hidden="true"></i> Fotos</a>
-                                            </li>
+                                            
                                             @else
                                             <li>
                                                 <a href="{{ route('usuario.favoritos') }}"><i class="fa fa-heart mr-3" aria-hidden="true"></i> Favoritos</a>
@@ -875,9 +911,15 @@
   <script src="{{ asset('js/main.js')}}"></script>
   <script src="{{ asset('js/toastr.js')}}"></script>
 
-  @if (session('status'))
+    @if (session('status'))
     <script>
         toastr.success( '{{ session("status") }}' );
+    </script>
+    @endif
+
+    @if (session('error'))
+    <script>
+        toastr.error( '{{ session("error") }}' );
     </script>
     @endif
 
@@ -905,6 +947,22 @@
                 $(target).show();
 
                 $(parent + ' .tab-btn').removeClass('active');
+                button.addClass('active');
+
+            });
+
+            $('.pestana').click(function(e){
+
+                e.preventDefault();
+
+                button = $(this);
+                parent = '#' + button.parents('.tabs').attr('id');
+                target = button.data('target');
+               
+                $(parent + ' .tab').hide();
+                $(target).show();
+
+                $(parent + ' .pestana').removeClass('active');
                 button.addClass('active');
 
             });

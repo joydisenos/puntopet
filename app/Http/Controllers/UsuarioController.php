@@ -128,6 +128,19 @@ class UsuarioController extends Controller
         $datos = $request->except(['password_confirmation' , 'password']);
         $datos['password'] = Hash::make($request->password);
 
+        if($request->rol == 1)
+        {
+            $comprobar = Negocio::where('slug' , str_slug($request->nombre_negocio))->first();
+        }else if($request->rol == 2)
+        {
+            $comprobar = Hogar::where('slug' , str_slug($request->nombre_negocio))->first();
+        }
+
+        if($comprobar != null)
+        {
+            return redirect()->back()->with('error' , 'Ya hay un registro con ese nombre, por favor intente con otro');
+        }
+
         $user = User::create($datos);
 
         $negociodatos['user_id'] = $user->id;
@@ -181,6 +194,20 @@ class UsuarioController extends Controller
         $user->save();
 
         return redirect()->back()->with('status' , 'Datos Actualizados');
+    }
+
+    public function verOrden($id)
+    {
+        $orden = Orden::findOrFail($id);
+
+        if($orden->user->id != Auth::user()->id)
+        {
+            return redirect()->back();
+        }else{
+
+            return view('user.orden' , compact('orden'));
+        }
+        
     }
 
     public function agregarDireccion(Request $request)

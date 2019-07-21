@@ -16,6 +16,7 @@ class CreateMascotasTable extends Migration
         Schema::create('mascotas', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('hogar_id');
+            $table->integer('user_id');
             $table->string('nombre')->nullable();
             $table->text('descripcion')->nullable();
             $table->string('foto')->nullable();

@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use PragmaRX\Tracker\Vendor\Laravel\Facade as Tracker;
 
 class Negocio extends Model
 {
@@ -11,6 +12,7 @@ class Negocio extends Model
         'nombre',
         'slug',
         'descripcion',
+        'telefono',
         'direccion',
         'logo_local',
         'foto_local',
@@ -22,6 +24,16 @@ class Negocio extends Model
     				->where('descripcion' , '!=' , null)
     				->where('estatus' , 1)
     				->get();
+    }
+
+    public function tiendasSlider()
+    {
+        return $this->where('nombre' , '!=' , null)
+                    ->where('descripcion' , '!=' , null)
+                    ->where('estatus' , 1)
+                    ->orderByRaw('RAND()')
+                    ->take(6)
+                    ->get();
     }
 
     public function user()
@@ -37,5 +49,21 @@ class Negocio extends Model
     public function ventas()
     {
         return $this->hasMany(Orden::class , 'negocio_id');
+    }
+
+    public function visitas()
+    {
+        $track = Tracker::logByRouteName('ver.tienda')
+                        ->where(function($query)
+                        {
+                            $query->where('parameter', 'slug')
+                                    ->where('value', $this->slug)
+                                    ->whereRaw('Month(tracker_log.created_at) = '. date('m'))
+                                    ->whereRaw('Year(tracker_log.created_at) = '. date('Y'));
+                        })
+                        
+                        ->count();
+
+        return $track;
     }
 }

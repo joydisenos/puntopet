@@ -13,7 +13,15 @@ class HomeController extends Controller
    
     public function index()
     {
-        return view('home');
+        $tiendasRef = new Negocio();
+        $tiendas = $tiendasRef->tiendasSlider();
+
+        return view('home' , compact('tiendas'));
+    }
+
+    public function bienvenido()
+    {
+        return view('bienvenido');
     }
 
     public function nosotros($pagina = null)
@@ -41,7 +49,15 @@ class HomeController extends Controller
         $tiendasRef = new Hogar();
         $tiendas = $tiendasRef->hogares();
 
-        return view('tiendas' , compact('tiendas'));
+        return view('hogares' , compact('tiendas'));
+    }
+
+    public function hogar($slug)
+    {
+        $hogar = Hogar::where('slug' , $slug)->first();
+        //$productos = $tienda->productos;
+        
+        return view('hogar' , compact('hogar'));
     }
 
     public function tienda($slug)
@@ -50,7 +66,8 @@ class HomeController extends Controller
         $carrito = Cart::content();
         $productos = $tienda->productos;
         $total = 0;
+        $totalMobile = 0;
 
-        return view('tienda' , compact('tienda' , 'carrito' , 'productos','total'));
+        return view('tienda' , compact('tienda' , 'carrito' , 'productos','total' , 'totalMobile'));
     }
 }

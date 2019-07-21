@@ -11,38 +11,21 @@
 
         <div class="carousel-inner" role="listbox">
 
-          <div class="carousel-item active">
-            <div class="carousel-background"><img src="{{ asset('img/freddy-anca-chuquihumani-1055220-unsplash.jpg')}}" alt=""></div>
+
+          @foreach($tiendas as $key => $tienda)
+
+          <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
+            <div class="carousel-background"><img src="{{ $tienda->foto_local != null ? asset( 'storage/archivos/'. $tienda->user->id . '/' . $tienda->foto_local ) : asset('img/freddy-anca-chuquihumani-1055220-unsplash.jpg')}}" alt=""></div>
             <div class="carousel-container">
               <div class="carousel-content">
-                <h2>Todo para tu mascota</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                <a href="#featured-services" class="btn-get-started scrollto">Ver más</a>
+                <h2>{{ $tienda->nombre }}</h2>
+                <p>{{ $tienda->descripcion }}</p>
+                <a href="{{ route('ver.tienda' , [$tienda->slug]) }}" class="btn-get-started">Ver tienda</a>
               </div>
             </div>
           </div>
 
-          <div class="carousel-item">
-            <div class="carousel-background"><img src="{{ asset('img/jannes-jacobs-683471-unsplash.jpg')}}" alt=""></div>
-            <div class="carousel-container">
-              <div class="carousel-content">
-                <h2>Alimentos para tu mascota</h2>
-                <p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut.</p>
-                <a href="#featured-services" class="btn-get-started scrollto">Ver más</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="carousel-item">
-            <div class="carousel-background"><img src="{{ asset('img/channey-528973-unsplash.jpg')}}" alt=""></div>
-            <div class="carousel-container">
-              <div class="carousel-content">
-                <h2>Servicio veterinario</h2>
-                <p>Beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt omnis iste natus error sit voluptatem accusantium.</p>
-                <a href="#featured-services" class="btn-get-started scrollto">Ver más</a>
-              </div>
-            </div>
-          </div>
+          @endforeach
 
           
 
@@ -67,7 +50,7 @@
     <!--==========================
       Featured Services Section
     ============================-->
-    <section id="featured-services">
+    <!--<section id="featured-services">
       <div class="container">
         <div class="row">
 
@@ -91,12 +74,12 @@
 
         </div>
       </div>
-    </section><!-- #featured-services -->
+    </section>--><!-- #featured-services -->
 
     <!--==========================
       About Us Section
     ============================-->
-    <section id="about">
+    <!--<section id="about">
       <div class="container">
 
         <header class="section-header">
@@ -148,12 +131,12 @@
         </div>
 
       </div>
-    </section><!-- #about -->
+    </section>--><!-- #about -->
 
     <!--==========================
       Services Section
     ============================-->
-    <section id="services">
+    <!--<section id="services">
       <div class="container">
 
         <header class="section-header wow fadeInUp">
@@ -197,7 +180,7 @@
         </div>
 
       </div>
-    </section><!-- #services -->
+    </section>--> <!-- #services -->
 
     <!--==========================
       Call To Action Section

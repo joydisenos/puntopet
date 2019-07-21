@@ -11,7 +11,7 @@
 		<div class="col pt-4 pb-4 mt-4 mb-4">
 			
 
-				<div class="row mb-4">
+				<div class="row">
 					<div class="col-4">
 						<p>Fecha:</p>
 					</div>
@@ -22,7 +22,7 @@
 
 				<hr>
 
-				<div class="row mb-4">
+				<div class="row">
 					<div class="col-4">
 						<p>Estatus:</p>
 					</div>
@@ -33,7 +33,7 @@
 
 				<hr>
 
-				<div class="row mb-4">
+				<div class="row">
 					<div class="col-4">
 						<p>Usuario:</p>
 					</div>
@@ -44,7 +44,7 @@
 
 				<hr>
 
-				<div class="row mb-4">
+				<div class="row">
 					<div class="col-4">
 						<p>Email:</p>
 					</div>
@@ -56,7 +56,7 @@
 				<hr>
 				
 				@if($orden->user->telefono != null)
-				<div class="row mb-4">
+				<div class="row">
 					<div class="col-4">
 						<p>Teléfono:</p>
 					</div>
@@ -69,7 +69,7 @@
 				<hr>
 				@endif
 
-				<div class="row mb-4">
+				<div class="row">
 					<div class="col-4">
 						<p>Envío:</p>
 					</div>
@@ -80,7 +80,7 @@
 
 				<hr>
 
-				<div class="row mb-4">
+				<div class="row">
 					<div class="col-4">
 						<p>Pago:</p>
 					</div>
@@ -93,7 +93,7 @@
 
 				
 
-				<div class="row mb-4">
+				<div class="row">
 					<div class="col">
 						<div class="text-center mb-4">
 							<h4>Pedido</h4>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Legal;
+use PragmaRX\Tracker\Vendor\Laravel\Facade as Tracker;
 
 class AdminController extends Controller
 {
@@ -36,5 +37,12 @@ class AdminController extends Controller
         $legal->save();
 
         return redirect()->route('admin.configuraciones')->with('status' , 'Sección actualizada');
+    }
+
+    public function sesiones()
+    {
+        $sesiones = Tracker::allSessions();
+
+        return view('admin.sesiones' , compact('sesiones'));
     }
 }

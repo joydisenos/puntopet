@@ -1,39 +1,4 @@
 @extends('master.front')
-
-@section('header')
-<style>
-	.fondo-foto{
-		height: 300px;
-		width:100%;
-		background-size: cover;
-		background-position: center center;
-	}
-	.fondo{
-		height: 100%;
-		width: 100%;
-		background: rgba(0,0,0,0.4);
-		color: #ffffff;
-		padding:30px;
-		transition: all ease .5s;
-	}
-	.fondo:hover{
-		background: rgba(0,0,0,0.7);
-	}
-	.fondo h3{
-		border-bottom: solid medium #18d26e;
-		font-weight: bold;
-	}
-	.fondo p{
-		opacity: 0;
-		transform: translateY(100px);
-		transition: all ease .5s;
-	}
-	.fondo:hover p{
-		opacity: 1;
-		transform: translateY(0);
-	}
-</style>
-@endsection
 @section('content')
 
 @component('components.header')

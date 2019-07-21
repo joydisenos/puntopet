@@ -18,6 +18,15 @@
 
 					<div class="row mb-4">
 						<div class="col-md-4">
+							<p>Teléfono</p>
+						</div>
+						<div class="col">
+							<input type="text" name="telefono" value="{{ $negocio != null ? $negocio->telefono: '' }}" class="form-control">
+						</div>
+					</div>
+
+					<div class="row mb-4">
+						<div class="col-md-4">
 							<p>Breve descripción</p>
 						</div>
 						<div class="col">

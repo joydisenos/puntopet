@@ -19,6 +19,7 @@ class CreateFotosTable extends Migration
             $table->integer('negocio_id')->nullable();
             $table->string('nombre')->nullable();
             $table->string('ruta')->nullable();
+            $table->string('archivo')->nullable();
             $table->timestamps();
         });
     }

@@ -46,6 +46,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /*
+    public function getIsAdminAttribute()
+    {
+        return true;
+    }
+    */
+
     public function productos()
     {
         return $this->hasMany(Producto::class , 'user_id');
@@ -69,5 +76,10 @@ class User extends Authenticatable
     public function hogares()
     {
         return $this->hasMany(Hogar::class , 'user_id');
+    }
+
+    public function mascotas()
+    {
+        return $this->hasMany(Mascota::class , 'user_id');
     }
 }

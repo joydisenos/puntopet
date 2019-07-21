@@ -50,6 +50,17 @@
 			  	<i class="fa fa-info-circle mr-3" aria-hidden="true"></i> Envíos
 			</li>
 		</a>
+		@elserole('hogar|dev')
+		<a href="{{ route('negocio.datos') }}">
+		  	<li class="list-group-item {{ (URL::current() == route('negocio.datos')) ? 'active' : ''}}">
+			  	<i class="fa fa-info-circle mr-3" aria-hidden="true"></i> Perfil
+			</li>
+		</a>
+		<a href="{{ route('negocio.mascotas') }}">
+		  	<li class="list-group-item {{ (URL::current() == route('negocio.mascotas')) ? 'active' : ''}}">
+			  	<i class="fa fa-paw mr-3" aria-hidden="true"></i> Mascotas
+			</li>
+		</a>
 		@else
 		<a href="{{ route('usuario.favoritos') }}">
 		  	<li class="list-group-item {{ (URL::current() == route('usuario.favoritos')) ? 'active' : ''}}">

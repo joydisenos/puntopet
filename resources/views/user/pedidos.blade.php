@@ -15,6 +15,7 @@
 						<th>Orden</th>
 						<th>Fecha</th>
 						<th>Productos</th>
+						<th>Detalles</th>
 						<th>Total</th>
 						<th>Estatus</th>
 					</thead>
@@ -24,6 +25,7 @@
 								<td>{{ $pedido->id }}</td>
 								<td>{{ $pedido->created_at->format('d-m-Y') }}</td>
 								<td>{{ $pedido->productos->count() }}</td>
+								<td><a href="{{ route('usuario.ver.orden' , $pedido->id) }}" class="btn btn-primary"><i class="fa fa-eye"></i></a></td>
 								<td>{{ $pedido->total }}</td>
 								<td>{{ $pedido->estatus }}</td>
 							</tr>

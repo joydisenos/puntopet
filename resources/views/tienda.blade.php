@@ -32,6 +32,13 @@
 	.header-panel{
 		min-height: 200px !important;
 	}
+	.btn-carrito{
+		position: fixed;
+		bottom: 10px;
+		left: 10px;
+		box-shadow: 4px 4px 8px rgba(0,0,0,0.5);
+		z-index: 999;
+	}
 	@if($tienda->foto_local != null )
 	.header-panel{
 		background-image: url('{{ asset( 'storage/archivos/'. $tienda->user->id . '/' . $tienda->foto_local ) }}') !important;
@@ -91,28 +98,40 @@
 				<div class="row mb-4 d-flex align-items-stretch">
 					@foreach($productos as $producto)
 					<div class="col-md-4 mb-4">
-						<div class="card" style="height: 100%;">
-						
-						@if($producto->foto == null)
-						<div class="fotos" style="background: url('{{ asset('img/channey-528973-unsplash.jpg') }}') center center; background-size: cover;"></div>
-						@else
-						  <div class="fotos" style="background: url('{{ asset('storage/archivos/' . $tienda->id . '/' . $producto->foto) }}') center center; background-size: cover;"></div>
-						@endif
 
-						  <div class="card-body">
-						    <h6>{{ title_case($producto->nombre) }}</h6>
-							<p>{{ $producto->descripcion }}</p>
-							<form action="{{ route('agregar.carrito' , $producto->id) }}" method="get">
-								@csrf
-				
-								<h6>${{ number_format($producto->precio) }}</h6>
-							
-								<button type="submit" class="btn btn-primary rounded-circle btn-small floating">
-									<i class="fa fa-plus"></i>
-								</button>
-							</form>
-						  </div>
+						<div class="fondo-foto"
+							@if($producto->foto == null)
+							style="background-image: url('{{ asset( 'img/channey-528973-unsplash.jpg' ) }}');"
+							@else 
+							style="background-image: url('{{ asset( 'storage/archivos/'. $hogar->user->id . '/' . $mascota->foto ) }}');"
+							@endif
+							>
+						
+							<div class="fondo">
+								<h6 class="border-bottom">{{ title_case($producto->nombre) }}</h6>
+								<p>{{ $producto->descripcion }}</p>
+								<p><a 
+									@if($producto->foto == null)
+									href="{{ asset( 'img/channey-528973-unsplash.jpg' ) }}"
+									@else
+									href="{{ asset( 'storage/archivos/'. $tienda->user->id . '/' . $producto->foto ) }}"
+									@endif 
+									rel="lightbox">Ampliar imagen</a></p>
+									<form action="{{ route('agregar.carrito' , $producto->id) }}" method="get">
+										@csrf
+						
+										<h6>${{ number_format($producto->precio) }}</h6>
+									
+										<button type="submit" class="btn btn-primary rounded-circle btn-small floating">
+											<i class="fa fa-plus"></i>
+										</button>
+									</form>
+
+							</div>
 						</div>
+
+
+						
 					</div>
 					@endforeach
 				</div>
@@ -125,6 +144,14 @@
 					  	<div class="row mb-4">
 					  		<div class="col">
 					  			<p>{{ $tienda->descripcion }}</p>
+					  		</div>
+					  	</div>
+					  	@endif
+
+					  	@if($tienda->telefono != null)
+					  	<div class="row mb-4">
+					  		<div class="col">
+					  			<p>{{ $tienda->telefono }}</p>
 					  		</div>
 					  	</div>
 					  	@endif
@@ -191,4 +218,67 @@
 				</div>
 	</div>
 </div>
+
+<button class="btn btn-primary btn-carrito d-lg-none" data-toggle="modal" data-target="#carrito-mobile"><i class="fa fa-shopping-cart"></i> {{ $carrito->count() > 0 ? ' '. $carrito->count() : ''}}</button>
+
+ <div class="modal fade" id="carrito-mobile" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document"> 
+            <div class="modal-content">
+              <div class="modal-header">
+              
+              	<h6 class="modal-title" id="exampleModalLongTitle">Mi Pedido <span class="badge badge-primary background-primary">{{ $carrito->count() > 0 ? ' '. $carrito->count() : ''}}</span></h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+
+              <div class="modal-body">
+
+              	<div class="row">
+						<div class="col text-center p-4">
+							
+									@if($carrito->count() == 0)
+								<div class="contenedor-carrito mx-auto">
+									<img src="{{ asset('images/icon-cake.png') }}" class="img-fluid img-carrito mb-4" alt="">
+								</div>
+							<p class="mb-4">Aún no tienes pedidos</p>
+									@else
+									<div class="row mb-4 text-left">
+										<div class="col-2"><strong>Cant.</strong></div>
+										<div class="col"><strong>Nombre</strong></div>
+										<div class="col"><strong>Precio</strong></div>
+										<div class="col"></div>
+									</div>
+									<hr>
+
+									@foreach($carrito as $carro)
+									<div class="row mb-4 text-left">
+										<div class="col-2">{{ $carro->qty }}</div>
+										<div class="col">{{ $carro->name }} {{ $carro->options->sabor }}</div>
+										<div class="col">${{ number_format($totalMobile += $carro->price * $carro->qty , 0  , ',' , '.') }}</div>
+										<div class="col"><a href="{{ route('eliminar.carrito' , $carro->rowId) }}" class="btn btn-primary"><i class="fa fa-trash"></i></a></div>
+									</div>
+									<hr>
+									@endforeach
+
+									<div class="row mb-4 text-left">
+										<div class="col-2"></div>
+										<div class="col"><strong>Total:</strong></div>
+										<div class="col"><strong>${{ number_format($totalMobile , 0  , ',' , '.') }}</strong></div>
+									</div>
+
+									<div class="row">
+										<div class="col text-center">
+											<a href="{{ route('ordenar' , [$tienda->slug]) }}" class="btn btn-primary">Ordenar</a>
+										</div>
+									</div>
+
+									@endif
+						</div>
+					</div>
+
+              </div>
+            </div>
+          </div>
+        </div>
 @endsection

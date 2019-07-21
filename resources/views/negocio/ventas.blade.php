@@ -23,8 +23,8 @@
 						<tr>
 							<td>{{ $negocio->nombre }}</td>
 							<td>{{ $negocio->ventas->count() }}</td>
-							<td>{{ $negocio->ventas->sum('total') }}</td>
-							<td><a href="{{ route('negocio.ventas.negocio' , [$negocio->slug]) }}" class="btn btn-primary">Detalles</a></td>
+							<td>${{ number_format($negocio->ventas->sum('total') , 0 , ',' , '.') }}</td>
+							<td><a href="{{ route('negocio.ventas.negocio' , [$negocio->slug]) }}" class="btn btn-primary">Ventas</a></td>
 						</tr>
 						@endforeach
 					</tbody>
