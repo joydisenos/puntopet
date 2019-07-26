@@ -16,6 +16,9 @@ class Negocio extends Model
         'direccion',
         'logo_local',
         'foto_local',
+        'entrega_domicilio',
+        'entrega_local',
+        'envio_gratis'
     ];
 
     public function tiendas()
@@ -48,7 +51,7 @@ class Negocio extends Model
 
     public function ventas()
     {
-        return $this->hasMany(Orden::class , 'negocio_id');
+        return $this->hasMany(Orden::class , 'negocio_id')->orderBy('id' , 'desc');
     }
 
     public function visitas()
@@ -63,6 +66,21 @@ class Negocio extends Model
                         })
                         
                         ->count();
+
+        return $track;
+    }
+
+    public function visitasDetalle()
+    {
+        $track = Tracker::logByRouteName('ver.tienda')
+                        ->where(function($query)
+                        {
+                            $query->where('parameter', 'slug')
+                                    ->where('value', $this->slug)
+                                    ->whereRaw('Month(tracker_log.created_at) = '. date('m'))
+                                    ->whereRaw('Year(tracker_log.created_at) = '. date('Y'));
+                        })
+                        ->get();
 
         return $track;
     }

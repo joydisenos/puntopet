@@ -58,7 +58,7 @@ Route::prefix('panel')->group( function () {
 		
 		Route::post('/registrar/hogar', 'NegocioController@registrarhogar')->name('hogar.agregar');
 		
-		Route::get('/ventas', 'NegocioController@ventas')->name('negocio.ventas');
+		Route::get('/negocios', 'NegocioController@ventas')->name('negocio.ventas');
 		Route::get('/ventas/negocio/{slug}', 'NegocioController@ventasNegocio')->name('negocio.ventas.negocio');
 		Route::get('/ventas/orden/{id}', 'NegocioController@verOrden')->name('negocio.ver.orden');
 		
@@ -81,6 +81,9 @@ Route::prefix('panel')->group( function () {
 
 		Route::post('/subir/fotos', 'NegocioController@subirFotos')->name('negocio.subir.fotos');
 		Route::get('/eliminar/foto/{id}', 'NegocioController@eliminarFoto')->name('negocio.eliminar.foto');
+		
+		Route::get('/envios', 'NegocioController@envios')->name('negocio.envios');
+		Route::post('/actualizarestatus', 'NegocioController@estatusNegocio')->name('negocio.actualizar.envio');
 	});
 
 Route::prefix('admin')->group( function () {
@@ -89,4 +92,5 @@ Route::prefix('admin')->group( function () {
 		Route::post('/seccion/{id}', 'AdminController@actualizarSeccion')->name('admin.actualizar.seccion');
 		Route::get('/usuarios', 'AdminController@usuarios')->name('admin.usuarios');
 		Route::get('/sesiones', 'AdminController@sesiones')->name('admin.sesiones');
+		Route::get('/sesiones/{slug}', 'AdminController@sesionesNegocio')->name('admin.sesiones.negocio');
 	});

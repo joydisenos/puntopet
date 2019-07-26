@@ -18,7 +18,9 @@
 					</div>
 				</div>
 
-
+				@if(Auth::user()->direcciones->count() == 0)
+				<h6>Registra direcciones para tus próximos pedidos</h6>
+				@else
 				<div class="table-responsive">
 					<table class="table">
 						<thead>
@@ -33,6 +35,7 @@
 						</tbody>
 					</table>
 				</div>
+				@endif
 				
 
 				<!-- Modal -->

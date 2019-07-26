@@ -48,7 +48,7 @@
 @component('components.headertienda')
 	@slot('logo')
 		@if($hogar->logo_local != null)
-		 <img src="{{ asset( 'storage/archivos/'. $hogar->id . '/' . $hogar->logo_local) }}" class="img-fluid logo-tienda d-inline rounded mr-1" alt="Logo {{ $hogar->nombre }}">
+		 <img src="{{ asset( 'storage/archivos/'. $hogar->user->id . '/' . $hogar->logo_local) }}" class="img-fluid logo-tienda d-inline rounded mr-1" alt="Logo {{ $hogar->nombre }}">
 		@else
 		 <img src="{{ asset('images/paw.png') }}" class="img-fluid logo-tienda d-inline rounded mr-1" alt="Logo {{ $hogar->nombre }}">
 		@endif

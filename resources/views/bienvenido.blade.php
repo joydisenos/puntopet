@@ -32,7 +32,13 @@
 						
 						@role('negocio')
 
+						@if(Auth::user()->productos->count() == 0)
+							<h6 class="mb-4">Aún no tienes productos registrados</h6>
+							<a href="{{ route('negocio.crear.producto') }}" class="btn btn-primary">Registrar Producto</a>
+							@endif
+
 						<div class="row">
+							
 							@foreach(Auth::user()->productos as $producto)
 								<div class="col-md-4 mb-4">
 									<a href="{{ route('negocio.modificar.producto' , [$producto->id]) }}">

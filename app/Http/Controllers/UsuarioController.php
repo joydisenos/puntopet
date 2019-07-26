@@ -161,7 +161,7 @@ class UsuarioController extends Controller
 
         Auth::login($user);
 
-        return redirect('/');
+        return redirect('/bienvenido');
     }
 
     public function actualizarDatos(Request $request)

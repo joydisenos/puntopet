@@ -110,9 +110,9 @@
                                 <ul class="nav-menu">
                                     
                                     
-                                    <li class="">
+                                   <!-- <li class="">
                                         <a class="nav-link" href="{{ (URL::current() == url('/')) ? '#about' : url('/#about') }}">Nosotros</a>
-                                    </li>
+                                    </li>-->
 
                                     <li class="">
                                         <a class="scrollto" href="{{ (URL::current() == url('/')) ? '#contact' : url('/#contact') }}">Contacto</a>
@@ -145,7 +145,7 @@
                                                 <a href="{{ route('negocio.productos') }}"><i class="fa fa-birthday-cake mr-3" aria-hidden="true"></i> Productos</a>
                                             </li>
                                             <li>
-                                                <a href="{{ route('negocio.ventas') }}"><i class="fa fa-money mr-3" aria-hidden="true"></i> Ventas</a>
+                                                <a href="{{ route('negocio.ventas') }}"><i class="fa fa-money mr-3" aria-hidden="true"></i> Negocios</a>
                                             </li>
                                             <li>
                                                 <a href="{{ route('negocio.datos') }}"><i class="fa fa-info-circle mr-3" aria-hidden="true"></i> Perfil</a>
@@ -910,6 +910,8 @@
   <!-- Template Main Javascript File -->
   <script src="{{ asset('js/main.js')}}"></script>
   <script src="{{ asset('js/toastr.js')}}"></script>
+
+  @yield('scripts')
 
     @if (session('status'))
     <script>

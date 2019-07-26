@@ -20,6 +20,13 @@ class Producto extends Model
     	return $this->belongsTo(Negocio::class , 'negocio_id');
     }
 
+    public function productosHome()
+    {
+        return $this->orderByRaw('RAND()')
+                    ->take(12)
+                    ->get();
+    }
+
      public function user()
     {
         return $this->belongsTo(User::class , 'user_id');

@@ -22,6 +22,12 @@
 			  	<i class="fa fa-cog mr-3" aria-hidden="true"></i> Configuraciones
 			</li>
 		</a>
+
+		<a href="{{ route('admin.sesiones') }}">
+		  	<li class="list-group-item {{ (URL::current() == route('admin.sesiones')) ? 'active' : ''}}">
+			  	<i class="fa fa-cog mr-3" aria-hidden="true"></i> Sesiones
+			</li>
+		</a>
 		@else
 
 		@role('negocio|dev')
@@ -33,7 +39,7 @@
 
 		<a href="{{ route('negocio.ventas') }}">
 		  	<li class="list-group-item {{ (URL::current() == route('negocio.ventas')) ? 'active' : ''}}">
-			  	<i class="fa fa-money mr-3" aria-hidden="true"></i> Ventas
+			  	<i class="fa fa-money mr-3" aria-hidden="true"></i> Negocios
 			</li>
 		</a>
 
@@ -45,9 +51,9 @@
 			</li>
 		</a>
 
-		<a href="#">
-		  	<li class="list-group-item">
-			  	<i class="fa fa-info-circle mr-3" aria-hidden="true"></i> Envíos
+		<a href="{{ route('negocio.envios') }}">
+		  	<li class="list-group-item {{ (URL::current() == route('negocio.envios')) ? 'active' : ''}}">
+			  	<i class="fa fa-info-circle mr-3" aria-hidden="true"></i> Envíos y Pagos
 			</li>
 		</a>
 		@elserole('hogar|dev')

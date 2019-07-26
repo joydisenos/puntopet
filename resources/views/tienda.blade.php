@@ -55,7 +55,7 @@
 @component('components.headertienda')
 	@slot('logo')
 		@if($tienda->logo_local != null)
-		 <img src="{{ asset( 'storage/archivos/'. $tienda->id . '/' . $tienda->logo_local) }}" class="img-fluid logo-tienda d-inline rounded mr-1" alt="Logo {{ $tienda->nombre }}">
+		 <img src="{{ asset( 'storage/archivos/'. $tienda->user->id . '/' . $tienda->logo_local) }}" class="img-fluid logo-tienda d-inline rounded mr-1" alt="Logo {{ $tienda->nombre }}">
 		@else
 		 <img src="{{ asset('images/paw.png') }}" class="img-fluid logo-tienda d-inline rounded mr-1" alt="Logo {{ $tienda->nombre }}">
 		@endif
@@ -103,7 +103,7 @@
 							@if($producto->foto == null)
 							style="background-image: url('{{ asset( 'img/channey-528973-unsplash.jpg' ) }}');"
 							@else 
-							style="background-image: url('{{ asset( 'storage/archivos/'. $hogar->user->id . '/' . $mascota->foto ) }}');"
+							style="background-image: url('{{ asset( 'storage/archivos/'. $tienda->user->id . '/' . $producto->foto ) }}');"
 							@endif
 							>
 						

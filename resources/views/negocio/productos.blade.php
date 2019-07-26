@@ -21,6 +21,16 @@
 
 				<div class="row">
 					<div class="col">
+						@if($productos->count() == 0)
+						<div class="text-center">
+							<h6 class="mb-4">Aún no tienes productos registrados</h6>
+						</div>
+						@else
+						<div class="row mb-4">
+							<div class="col">
+								<input type="text" id="buscar" class="form-control" placeholder="Buscar">
+							</div>
+						</div>
 						<div class="table-responsive">
 							<table class="table">
 								<thead>
@@ -32,7 +42,7 @@
 									<th>Estatus</th>
 									<th></th>
 								</thead>
-								<tbody>
+								<tbody class="list">
 									@foreach($productos as $producto)
 									<tr>
 										<td>
@@ -55,6 +65,7 @@
 								</tbody>
 							</table>
 						</div>
+						@endif
 					</div>
 				</div>
 			
@@ -62,4 +73,7 @@
 		</div>
 	</div>
 </div>
+@endsection
+@section('scripts')
+	@include('includes.busqueda')
 @endsection

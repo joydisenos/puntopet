@@ -181,7 +181,42 @@
 
       </div>
     </section>--> <!-- #services -->
+    
+    <section class="mt-4 mb-4">
+      <div class="container">
+        <div class="row">
+          @foreach($productos as $producto)
+            <div class="col-md-3">
+             
+              <div class="fondo-foto"
+              @if($producto->foto == null)
+              style="background-image: url('{{ asset( 'img/channey-528973-unsplash.jpg' ) }}');"
+              @else 
+              style="background-image: url('{{ asset( 'storage/archivos/'. $producto->user->id . '/' . $producto->foto ) }}');"
+              @endif
+              >
+            
+              <div class="fondo">
+                <h6 class="border-bottom">{{ title_case($producto->nombre) }}</h6>
+                <p>{{ str_limit( $producto->descripcion , 200) }}</p>
+                <p><a 
+                  @if($producto->foto == null)
+                  href="{{ asset( 'img/channey-528973-unsplash.jpg' ) }}"
+                  @else
+                  href="{{ asset( 'storage/archivos/'. $producto->negocio->user->id . '/' . $producto->foto ) }}"
+                  @endif 
+                  rel="lightbox">Ampliar imagen</a></p>
+                <p><a href="{{ route('ver.tienda' , [$producto->negocio->slug]) }}">Visitar tienda</a></p>
+                  
 
+              </div>
+            </div>
+
+            </div>
+          @endforeach
+        </div>
+      </div>
+    </section>
     <!--==========================
       Call To Action Section
     ============================-->

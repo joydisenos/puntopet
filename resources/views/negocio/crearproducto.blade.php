@@ -15,7 +15,7 @@
 				
 				<div class="row mb-4">
 					<div class="col">
-						<h5>Tienda</h5>
+						<h5>Seleccionar tienda</h5>
 					</div>
 					<div class="col">
 						<select name="negocio_id" class="form-control" required>

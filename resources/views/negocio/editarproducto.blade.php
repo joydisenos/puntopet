@@ -15,7 +15,7 @@
 
 				<div class="row mb-4">
 					<div class="col">
-						<h5>Tienda</h5>
+						<h5>Seleccionar tienda</h5>
 					</div>
 					<div class="col">
 						<select name="negocio_id" class="form-control" required>
@@ -28,11 +28,11 @@
 				</div>
 
 				<div class="row mb-4">
-					<div class="col">
+					<div class="col text-center">
 						@if($producto->foto == null)
 						<img src="{{ asset('images/logo-01.png') }}" class="img-fluid" alt="Imagen {{ $producto->nombre }}">
 						@else
-						<img src="{{ asset('storage/archivos/' . Auth::user()->id . '/' . $producto->foto) }}" class="img-fluid" alt="Imagen {{ $producto->nombre }}">
+						<img src="{{ asset('storage/archivos/' . Auth::user()->id . '/' . $producto->foto) }}" class="img-fluid rounded" style="max-width: 150px;max-height: 150px;" alt="Imagen {{ $producto->nombre }}">
 						@endif
 					</div>
 					<div class="col">

@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use PragmaRX\Tracker\Vendor\Laravel\Facade as Tracker;
 use Illuminate\Http\Request;
 use App\User;
 use App\Legal;
-use PragmaRX\Tracker\Vendor\Laravel\Facade as Tracker;
+use App\Negocio;
 
 class AdminController extends Controller
 {
@@ -41,8 +42,16 @@ class AdminController extends Controller
 
     public function sesiones()
     {
-        $sesiones = Tracker::allSessions();
+        $negocios = Negocio::all();
 
-        return view('admin.sesiones' , compact('sesiones'));
+        return view('admin.sesiones' , compact('negocios'));
+    }
+
+    public function sesionesNegocio($negocio)
+    {
+        $negocio = Negocio::where('slug' , $negocio)->first();
+        $sesiones = $negocio->visitasDetalle();
+
+        return view('admin.sesionesnegocio' , compact('negocio' , 'sesiones'));
     }
 }

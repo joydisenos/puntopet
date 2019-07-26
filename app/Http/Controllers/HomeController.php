@@ -7,6 +7,7 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 use App\Legal;
 use App\Negocio;
 use App\Hogar;
+use App\Producto;
 
 class HomeController extends Controller
 {
@@ -15,8 +16,10 @@ class HomeController extends Controller
     {
         $tiendasRef = new Negocio();
         $tiendas = $tiendasRef->tiendasSlider();
+        $productosRef = new Producto();
+        $productos = $productosRef->productosHome();
 
-        return view('home' , compact('tiendas'));
+        return view('home' , compact('tiendas' , 'productos'));
     }
 
     public function bienvenido()

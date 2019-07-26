@@ -64,6 +64,16 @@ class NegocioController extends Controller
             $fotoLocal = $request->file('foto_local');
             $nombreFotoLocal = $fotoLocal->getClientOriginalName();
             $request->file('foto_local')->storeAs($rutaLocal, $nombreFotoLocal, 'public');
+            $data['foto_local'] = $nombreFotoLocal;
+        }
+
+        if( $request->hasFile('logo_local') )
+        {
+            $rutaLogo = 'archivos/'. Auth::user()->id;
+            $fotoLogo = $request->file('logo_local');
+            $nombreLogoLocal = $fotoLogo->getClientOriginalName();
+            $request->file('logo_local')->storeAs($rutaLogo, $nombreLogoLocal, 'public');
+            $data['logo_local'] = $nombreLogoLocal;
         }
 
         $negocio = Negocio::create($data);
@@ -96,6 +106,16 @@ class NegocioController extends Controller
             $fotoLocal = $request->file('foto_local');
             $nombreFotoLocal = $fotoLocal->getClientOriginalName();
             $request->file('foto_local')->storeAs($rutaLocal, $nombreFotoLocal, 'public');
+            $data['foto_local'] = $nombreFoto;
+        }
+
+        if( $request->hasFile('logo_local') )
+        {
+            $rutaLogo = 'archivos/'. Auth::user()->id;
+            $fotoLogo = $request->file('logo_local');
+            $nombreLogoLocal = $fotoLogo->getClientOriginalName();
+            $request->file('logo_local')->storeAs($rutaLogo, $nombreLogoLocal, 'public');
+            $data['logo_local'] = $nombreLogoLocal;
         }
 
         $hogar = Hogar::create($data);
@@ -198,6 +218,27 @@ class NegocioController extends Controller
         $producto = Producto::findOrFail($id)->update($data);
 
         return redirect()->route('negocio.productos')->with('status' , 'Producto Actualizado');
+    }
+
+    public function estatusNegocio(Request $request)
+    {
+        $negocio = Negocio::findOrFail($request->id);
+
+        $campo = $negocio[$request->campo];
+
+        if($campo == 0)
+            {
+                $data[$request->campo] = 1;
+            }
+        else{
+                $data[$request->campo] = 0;
+            }
+
+        $negocio->update($data);
+
+        return response()->json([
+                                    'campo' => $campo
+                                ]);
     }
 
     public function actualizarMascota(Request $request , $id)
@@ -320,9 +361,18 @@ class NegocioController extends Controller
             $data['foto_local'] = $nombreFoto;
         }
 
+        if( $request->hasFile('logo_local') )
+        {
+            $rutaLogo = 'archivos/'. Auth::user()->id;
+            $fotoLogo = $request->file('logo_local');
+            $nombreLogoLocal = $fotoLogo->getClientOriginalName();
+            $request->file('logo_local')->storeAs($rutaLogo, $nombreLogoLocal, 'public');
+            $data['logo_local'] = $nombreLogoLocal;
+        }
+
         $negocio = Negocio::findOrFail($id)->update($data);
 
-        return redirect()->route('negocio.datos')->with('status' , 'Datos actualizados');
+        return redirect()->route('negocio.ventas')->with('status' , 'Datos actualizados');
     }
 
     public function actualizarHogar(Request $request , $id)
@@ -345,6 +395,15 @@ class NegocioController extends Controller
             $data['foto_local'] = $nombreFoto;
         }
 
+        if( $request->hasFile('logo_local') )
+        {
+            $rutaLogo = 'archivos/'. Auth::user()->id;
+            $fotoLogo = $request->file('logo_local');
+            $nombreLogoLocal = $fotoLogo->getClientOriginalName();
+            $request->file('logo_local')->storeAs($rutaLogo, $nombreLogoLocal, 'public');
+            $data['logo_local'] = $nombreLogoLocal;
+        }
+
         $hogar = Hogar::findOrFail($id)->update($data);
 
         return redirect()->route('negocio.datos')->with('status' , 'Datos actualizados');
@@ -363,6 +422,13 @@ class NegocioController extends Controller
         $ventas = $negocio->ventas;
 
         return view('negocio.ventasnegocio' , compact('ventas'));
+    }
+
+    public function envios()
+    {
+        $negocios = Auth::user()->negocios;
+
+        return view('negocio.envios' , compact('negocios'));
     }
 
     public function subirFotos(Request $request)

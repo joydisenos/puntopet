@@ -2,7 +2,7 @@
 @section('content')
 
 @component('components.header')
-    @slot('titulo' , 'Sesiones')
+    @slot('titulo' , 'Clics ' . title_case($negocio->nombre))
 @endcomponent
 
 <div class="container">
@@ -13,18 +13,18 @@
 			<div class="table-responsive">
 				<table class="table table-hover">
 					<thead>
-						<th>Nombre</th>
+						<th>IP</th>
 						<th>User</th>
-						<th>Visitas</th>
-						<th>Detalles</th>
+						<th>Referido</th>
+						<th>Último Registro</th>
 					</thead>
 					<tbody>
-						@foreach($negocios as $negocio)
+						@foreach($sesiones as $sesion)
 						<tr>
-							<td>{{ $negocio->nombre }}</td>
-							<td>{{ $negocio->user ? $negocio->user->nombre : '' }}</td>
-							<td>{{ $negocio->visitas() }}</td>
-							<td><a href="{{ route('admin.sesiones.negocio' , $negocio->slug ) }}" class="btn btn-primary"><i class="fa fa-eye"></i></a></td>
+							<td>{{ $sesion->session->client_ip }}</td>
+							<td>{{ $sesion->session->user ? $sesion->session->user->email : '' }}</td>
+							<td>{{ $sesion->referer->url }}</td>
+							<td>{{ $sesion->session->updated_at->format('d-m-Y') }}</td>
 						</tr>
 						@endforeach
 					</tbody>
