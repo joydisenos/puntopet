@@ -26,9 +26,15 @@
 
 			<div class="row">
 					<div class="col mb-4 text-right">
+						@role('negocio')
 						<a href="#" class="btn btn-primary" data-toggle="modal" data-target="#agregar_negocio">
 							Crear Negocio
 						</a>
+						@elserole('hogar')
+						<a href="#" class="btn btn-primary" data-toggle="modal" data-target="#agregar_hogar">
+							Crear Hogar
+						</a>
+						@endrole
 					</div>
 				</div>
 
@@ -65,6 +71,36 @@
 							</div>
 						
 						@endforeach
+
+						@foreach($hogares as $hogar)
+						
+							<div class="row negocio-row">
+								<div class="col-4 text-center">
+									@if($hogar->logo_local == null)
+									<img src="{{ asset('images/paw.png') }}" style="max-height: 150px;" class="img-fluid" alt="{{ $hogar->nombre }}">
+									@else
+									<img src="{{ asset( 'storage/archivos/'. $hogar->user->id . '/' . $hogar->logo_local) }}" style="max-height: 150px;" class="img-fluid logo-tienda d-inline rounded mr-1" alt="Logo {{ $hogar->nombre }}">
+									@endif
+								</div>
+								<div class="col">
+									<h3><strong>{{ title_case($hogar->nombre) }}</strong></h3>
+
+									<div class="row">
+										<div class="col">
+												<h6>Clicks registrados: {{ $hogar->visitas() }}</h6>
+										
+										</div>
+										<div class="col">
+											
+											<a href="{{ route('hogar.editar' , $hogar->id) }}" class="btn btn-primary">Modificar</a>
+											
+										</div>
+									</div>
+
+								</div>
+							</div>
+						
+						@endforeach
 					
 			
 			
@@ -74,7 +110,8 @@
 </div>
 
 
-	<!-- Modal -->
+	@role('negocio|dev')
+					<!-- Modal -->
 				<div class="modal fade" id="agregar_negocio" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 				  <div class="modal-dialog modal-dialog-centered" role="document">
 				    <div class="modal-content">
@@ -115,4 +152,47 @@
 				    </div>
 				  </div>
 				</div>
+					@elserole('hogar|dev')
+					<!-- Modal -->
+				<div class="modal fade" id="agregar_hogar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+				  <div class="modal-dialog modal-dialog-centered" role="document">
+				    <div class="modal-content">
+				      <div class="modal-header background-primary">
+				        <h6 class="modal-title text-white" id="exampleModalLongTitle">Agregar Hogar</h6>
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				          <span aria-hidden="true">&times;</span>
+				        </button>
+				      </div>
+				      <div class="modal-body">
+
+				      	<form action="{{ route('hogar.agregar') }}" method="post">
+				      		@csrf
+
+				        <div class="row justify-content-center mb-3">
+				        	<div class="col-10">
+				        		
+				        		@component('components.hogares')
+				        		@slot('hogar' , null)
+				        		@endcomponent
+				        	</div>
+				        </div>
+
+				       
+
+				        <div class="row justify-content-center mb-3">
+				        	<div class="col-10">
+				        		<button class="btn btn-primary btn-block">
+				        			Agregar
+				        		</button>
+				        	</div>
+				        </div>
+
+				        </form>
+
+				      </div>
+				     
+				    </div>
+				  </div>
+				</div>
+					@endrole
 @endsection

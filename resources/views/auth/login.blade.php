@@ -61,7 +61,7 @@
 
                         <div class="form-group row mb-0 justify-content-center">
                             <div class="col-md-8 text-center">
-                                <button type="submit" class="btn btn-danger">
+                                <button type="submit" class="btn btn-primary">
                                     {{ __('Login') }}
                                 </button>
 

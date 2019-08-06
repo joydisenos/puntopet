@@ -19,7 +19,7 @@
 							<div class="col">
 								<input type="text" id="buscar" class="form-control" placeholder="Buscar">
 							</div>
-						</div>
+						</div> 
 
 			<div class="table-responsive">
 				<table class="table">

@@ -13,12 +13,16 @@ use App\Negocio;
 use App\Producto;
 use App\Orden;
 use App\Compra;
+use App\Favorito;
 
 class UsuarioController extends Controller
 {
     public function favoritos()
     {
-    	return view('user.favoritos');
+        $favoritosTienda = Auth::user()->favoritosTienda;
+        $favoritosHogar = Auth::user()->favoritosHogar;
+
+    	return view('user.favoritos' , compact('favoritosTienda' ,'favoritosHogar'));
     }
 
     public function direcciones()
@@ -29,6 +33,19 @@ class UsuarioController extends Controller
     public function datos()
     {
     	return view('user.datos');
+    }
+
+    public function membresia()
+    {
+        return view('user.membresia');
+    }
+
+    public function membresiaPet()
+    {
+        $user = Auth::user();
+        $user->assignRole('pet');
+
+        return redirect()->back()->with('status' , 'Membresía aumentada!');
     }
 
     public function pedidos()
@@ -227,5 +244,38 @@ class UsuarioController extends Controller
     public function sugerir(Request $request)
     {
         return redirect('/');
+    }
+
+    public function actualizarFavorito(Request $request)
+    {
+        if($request->tipo == 'tienda'){
+                $favorito = Favorito::where('negocio_id' , $request->id)->first();
+                if($favorito == null)
+                {
+                    Favorito::create([
+                        'user_id' => Auth::user()->id,
+                        'negocio_id' => $request->id
+                    ]);
+                    $estatus = 'guardado';
+                }else{
+                    $favorito->delete();
+                    $estatus = 'eliminado';
+                }
+        }else{
+                $favorito = Favorito::where('hogar_id' , $request->id)->first();
+                if($favorito == null)
+                {
+                    Favorito::create([
+                        'user_id' => Auth::user()->id,
+                        'hogar_id' => $request->id
+                    ]);
+                    $estatus = 'guardado';
+                }else{
+                    $favorito->delete();
+                    $estatus = 'eliminado';
+                }
+        }
+
+        return response()->json(['data' => 'actualizado' , 'estatus' => $estatus]);
     }
 }

@@ -34,18 +34,22 @@ Route::get('/tienda/{slug}/ordenar', 'UsuarioController@ordenar')->name('ordenar
 
 Route::get('/bienvenido', 'HomeController@bienvenido')->name('bienvenido')->middleware('auth');
 
-Route::prefix('usuario')->group( function () {
+Route::prefix('usuario')->middleware('auth')->group( function () {
 		Route::get('/favoritos', 'UsuarioController@favoritos')->name('usuario.favoritos');
 		Route::get('/direcciones', 'UsuarioController@direcciones')->name('usuario.direcciones');
+		Route::get('/membresia', 'UsuarioController@membresia')->name('usuario.membresia');
+		Route::get('/membresia/aumentar', 'UsuarioController@membresiaPet')->name('usuario.membresia.aumentar');
 		Route::post('/agregar/direccion', 'UsuarioController@agregarDireccion')->name('usuario.agregar.direccion');
 		Route::get('/datos', 'UsuarioController@datos')->name('usuario.datos');
 		Route::get('/pedidos', 'UsuarioController@pedidos')->name('usuario.pedidos');
 		Route::post('/datos/actualizar', 'UsuarioController@actualizarDatos')->name('usuario.actualizar.datos');
 
 		Route::get('/pedidos/orden/{id}', 'UsuarioController@verOrden')->name('usuario.ver.orden');
+
+		Route::post('/favoritos/actualizar', 'UsuarioController@actualizarFavorito')->name('usuario.agregar.favorito');
 	});
 
-Route::prefix('panel')->group( function () {
+Route::prefix('panel')->middleware('auth')->middleware('role:hogar|negocio')->group( function () {
 		Route::get('/productos', 'NegocioController@productos')->name('negocio.productos');
 		Route::get('mascotas', 'NegocioController@mascotas')->name('negocio.mascotas');
 		
@@ -86,7 +90,7 @@ Route::prefix('panel')->group( function () {
 		Route::post('/actualizarestatus', 'NegocioController@estatusNegocio')->name('negocio.actualizar.envio');
 	});
 
-Route::prefix('admin')->group( function () {
+Route::prefix('admin')->middleware('auth')->middleware('role:admin')->group( function () {
 		Route::get('/configuraciones', 'AdminController@configuraciones')->name('admin.configuraciones');
 		Route::get('/seccion/{pag}', 'AdminController@seccion')->name('admin.editar.seccion');
 		Route::post('/seccion/{id}', 'AdminController@actualizarSeccion')->name('admin.actualizar.seccion');

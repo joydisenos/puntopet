@@ -411,9 +411,19 @@ class NegocioController extends Controller
 
     public function ventas()
     {
-        $negocios = Auth::user()->negocios;
+        $user = Auth::user();
 
-        return view('negocio.ventas' , compact('negocios'));
+        if($user->hasRole('negocio'))
+        {
+            $negocios = Auth::user()->negocios;
+            $hogares = [];
+        }else if($user->hasRole('hogar'))
+        {
+            $hogares = Auth::user()->hogares;
+            $negocios = [];
+        }
+
+        return view('negocio.ventas' , compact('negocios' , 'hogares'));
     }
 
     public function ventasNegocio($slug)

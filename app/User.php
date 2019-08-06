@@ -58,6 +58,23 @@ class User extends Authenticatable
         return $this->hasMany(Producto::class , 'user_id');
     }
 
+    public function favoritos()
+    {
+        return $this->hasMany(Favorito::class, 'user_id');
+    }
+
+    public function favoritosHogar()
+    {
+        return $this->hasMany(Favorito::class , 'user_id')
+                    ->where('hogar_id' , '!=' , null);
+    }
+
+    public function favoritosTienda()
+    {
+        return $this->hasMany(Favorito::class , 'user_id')
+                    ->where('negocio_id' , '!=' , null);
+    }
+
     public function compras()
     {
         return $this->hasMany(Orden::class , 'user_id');
@@ -81,5 +98,27 @@ class User extends Authenticatable
     public function mascotas()
     {
         return $this->hasMany(Mascota::class , 'user_id');
+    }
+
+    public function esFavoritoTienda($negocio_id)
+    {
+        $esFavorito = $this->whereHas('favoritos' , function($q) 
+                                                    use($negocio_id)
+                        {
+                            $q->where('negocio_id' , $negocio_id);
+                        })->first();
+
+        return $esFavorito;
+    }
+
+    public function esFavoritoHogar($hogar_id)
+    {
+        $esFavorito = $this->whereHas('favoritos' , function($q) 
+                                                    use($hogar_id)
+                        {
+                            $q->where('hogar_id' , $hogar_id);
+                        })->first();
+
+        return $esFavorito;
     }
 }

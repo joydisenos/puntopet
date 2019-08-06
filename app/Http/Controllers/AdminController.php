@@ -35,6 +35,7 @@ class AdminController extends Controller
     {
         $legal = Legal::findOrFail($id);
         $legal->texto = $request->texto;
+        $legal->valor = $request->valor;
         $legal->save();
 
         return redirect()->route('admin.configuraciones')->with('status' , 'Sección actualizada');

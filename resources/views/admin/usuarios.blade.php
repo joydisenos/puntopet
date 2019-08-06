@@ -8,7 +8,13 @@
 <div class="container">
 	<div class="row">
 		@include('includes.nav-side')
-		<div class="col pt-4 pb-4 mt-4 mb-4">
+		<div class="col-md-9 pt-4 pb-4 mt-4 mb-4">
+
+			<div class="row mb-4">
+				<div class="col">
+					<input type="text" id="buscar" class="form-control" placeholder="Buscar">
+				</div>
+			</div>
 			
 			<div class="row">
 				<div class="col">
@@ -19,7 +25,7 @@
 								<th>Email</th>
 								<th>Tipo</th>
 							</thead>
-							<tbody>
+							<tbody class="list">
 								@foreach($usuarios as $user)
 								<tr>
 									<td>{{ title_case($user->nombre) }} {{ title_case($user->apellido) }}</td>
@@ -37,4 +43,7 @@
 		</div>
 	</div>
 </div>
+@endsection
+@section('scripts')
+	@include('includes.busqueda')
 @endsection

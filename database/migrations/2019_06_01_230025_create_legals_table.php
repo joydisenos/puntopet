@@ -18,6 +18,8 @@ class CreateLegalsTable extends Migration
             $table->string('nombre');
             $table->string('slug');
             $table->text('texto')->nullable();
+            $table->float('valor')->nullable();
+            $table->integer('entero')->nullable();
             $table->timestamps();
         });
     }

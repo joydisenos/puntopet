@@ -247,7 +247,7 @@
             <div class="contact-address">
               <i class="ion-ios-location-outline"></i>
               <h3>Dirección</h3>
-              <address>A108 Adam Street, NY 535022, USA</address>
+              <address>{{ App\Legal::direccion() }}</address>
             </div>
           </div>
 
@@ -255,7 +255,7 @@
             <div class="contact-phone">
               <i class="ion-ios-telephone-outline"></i>
               <h3>Teléfono</h3>
-              <p><a href="tel:+155895548855">+1 5589 55488 55</a></p>
+              <p><a href="tel:+155895548855">{{ App\Legal::telefono() }}</a></p>
             </div>
           </div>
 
@@ -263,7 +263,7 @@
             <div class="contact-email">
               <i class="ion-ios-email-outline"></i>
               <h3>Email</h3>
-              <p><a href="mailto:info@example.com">info@example.com</a></p>
+              <p><a href="mailto:info@example.com">{{ App\Legal::email() }}</a></p>
             </div>
           </div>
 

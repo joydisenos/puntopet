@@ -1,6 +1,7 @@
 @extends('master.front')
 
 @section('header')
+<meta name="csrf-token" content="{{ csrf_token() }}" />
 <style>
 	.fotos{
 		height: 200px;
@@ -39,6 +40,12 @@
 		box-shadow: 4px 4px 8px rgba(0,0,0,0.5);
 		z-index: 999;
 	}
+	#map{
+		height: 300px;
+		width: 100%;
+		margin-bottom: 30px;
+		overflow: hidden;
+	}
 	@if($tienda->foto_local != null )
 	.header-panel{
 		background-image: url('{{ asset( 'storage/archivos/'. $tienda->user->id . '/' . $tienda->foto_local ) }}') !important;
@@ -61,7 +68,7 @@
 		@endif
 	@endslot
     @slot('titulo' , title_case($tienda->nombre))
-    @slot('puntos')
+    @slot('negocio_id' , $tienda->id)
     	
     @endslot
 @endcomponent
@@ -151,7 +158,51 @@
 					  	@if($tienda->telefono != null)
 					  	<div class="row mb-4">
 					  		<div class="col">
-					  			<p>{{ $tienda->telefono }}</p>
+					  			<p><strong>Teléfono:</strong> {{ $tienda->telefono }}</p>
+					  		</div>
+					  	</div>
+					  	@endif
+
+					  	@if($tienda->email != null)
+					  	<div class="row mb-4">
+					  		<div class="col">
+					  			<p><strong>Email:</strong> {{ $tienda->email }}</p>
+					  		</div>
+					  	</div>
+					  	@endif
+
+					  	@if($tienda->contacto != null)
+					  	<div class="row mb-4">
+					  		<div class="col">
+					  			<p><strong>Persona de Contacto:</strong> {{ $tienda->contacto }}</p>
+					  		</div>
+					  	</div>
+					  	@endif
+						
+						@if($tienda->twitter != null || $tienda->facebook != null || $tienda->instagram != null || $tienda->googleplus != null || $tienda->linkedin != null )
+					  	<div class="row mb-4">
+					  		<div class="col text-center">
+					  			<div class="social-links">
+					  			@if($tienda->twitter != null)
+					              <a href="{{ $tienda->twitter }}" class="twitter rounded p-2 background-primary text-white"><i class="fa fa-twitter"></i></a>
+					            @endif
+
+					            @if($tienda->facebook != null)
+					              <a href="{{ $tienda->facebook }}" class="facebook rounded p-2 background-primary text-white"><i class="fa fa-facebook"></i></a>
+					            @endif
+
+					            @if($tienda->instagram != null)
+					              <a href="{{ $tienda->instagram }}" class="instagram rounded p-2 background-primary text-white"><i class="fa fa-instagram"></i></a>
+					            @endif
+
+					            @if($tienda->googleplus != null)
+					              <a href="{{ $tienda->googleplus }}" class="google-plus rounded p-2 background-primary text-white"><i class="fa fa-google-plus"></i></a>
+					            @endif
+
+					            @if($tienda->linkedin != null)
+					              <a href="{{ $tienda->linkedin }}" class="linkedin rounded p-2 background-primary text-white"><i class="fa fa-linkedin"></i></a>
+					            @endif
+					            </div>
 					  		</div>
 					  	</div>
 					  	@endif
@@ -160,6 +211,13 @@
 					  	<div class="row mb-4">
 					  		<div class="col">
 					  			<p><strong>Dirección:</strong> {{ $tienda->direccion }}</p>
+					  		</div>
+					  	</div>
+					  	<div class="row mb-4">
+					  		<div class="col">
+					  			<input type="hidden" name="latitud" id="lat" value="{{ $tienda->latitud }}">
+								<input type="hidden" name="longitud" id="long" value="{{ $tienda->longitud }}">
+					  			<div id="map"></div>
 					  		</div>
 					  	</div>
 					  	@endif
@@ -239,7 +297,7 @@
 							
 									@if($carrito->count() == 0)
 								<div class="contenedor-carrito mx-auto">
-									<img src="{{ asset('images/icon-cake.png') }}" class="img-fluid img-carrito mb-4" alt="">
+									<img src="{{ asset('images/paw.png') }}" class="img-fluid img-carrito mb-4" alt="">
 								</div>
 							<p class="mb-4">Aún no tienes pedidos</p>
 									@else
@@ -281,4 +339,58 @@
             </div>
           </div>
         </div>
+@endsection
+@section('scripts')
+<script src='https://api.mapbox.com/mapbox-gl-js/v1.0.0/mapbox-gl.js'></script>
+<script>
+
+			$.ajaxSetup({
+		        headers: {
+		            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		        }
+		    });
+
+			$('#favorito-btn').click(function(e){
+				e.preventDefault();
+				tipo = 'tienda';
+	        	id = $(this).attr('rel');
+	        	
+	        	$.ajax({
+
+		           type:'POST',
+		           url:"{{route('usuario.agregar.favorito')}}",
+		           data:{ tipo:tipo,
+		           			id:id 
+		           		},
+		           success:function(data){
+		           	//console.log(data);
+		           	if(data.estatus == 'guardado')
+		           	{
+		           		$('#icono-fav').removeClass('text-white');
+		           		$('#icono-fav').addClass('text-danger');
+		           	}else{
+		           		$('#icono-fav').removeClass('text-danger');
+		           		$('#icono-fav').addClass('text-white');
+		           	}
+		           }
+
+		        });
+			});
+
+			lat = $('#lat').val();
+			long = $('#long').val();
+
+			mapboxgl.accessToken = 'pk.eyJ1Ijoiam95ZGlzZW5vcyIsImEiOiJjanhsNjl1OHMwMnVoM3hxZWtjamJxeGpoIn0.fsWaR9XzZr2IcBCNZCzQ6A';
+
+			var map2 = new mapboxgl.Map({
+			container: 'map', 
+			style: 'mapbox://styles/mapbox/streets-v11',
+			center: [long, lat], 
+			zoom: 9 
+			});
+
+			markerCurrent = new mapboxgl.Marker()
+				.setLngLat([long, lat])
+				.addTo(map2);
+</script>
 @endsection

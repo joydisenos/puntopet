@@ -20,6 +20,7 @@
 								<thead>
 									<th>Sección</th>
 									<th>Texto</th>
+									<th>Valor</th>
 									<th>Modificar</th>
 								</thead>
 								<tbody>
@@ -27,8 +28,9 @@
 									<tr>
 										<td>{{ title_case($legal->nombre) }}</td>
 										<td>{{ str_limit($legal->texto , 30) }}</td>
+										<td>{{ $legal->valor }}</td>
 										<td>
-											<a href="{{ route('admin.editar.seccion' , $legal->slug) }}">
+											<a href="{{ route('admin.editar.seccion' , $legal->slug) }}" class="btn btn-primary">
 												Modificar
 											</a>
 										</td>

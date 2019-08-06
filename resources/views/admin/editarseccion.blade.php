@@ -23,15 +23,25 @@
 						<h4>{{ title_case($legal->nombre) }}</h4>
 					</div>
 					<div class="col-md-2">
-						<button type="submit" class="btn btn-danger">Guardar</button>
+						<button type="submit" class="btn btn-primary">Guardar</button>
 					</div>
 				</div>
 
+				@if($legal->valor != null)
 				<div class="row">
 					<div class="col">
-						<textarea name="texto" class="form-control" cols="30" rows="10" id="editor">{{ $legal->texto }}</textarea>
+						<input type="nomber" min="0" step="any" name="valor" class="form-control" value="{{ $legal->valor }}" required>
 					</div>
 				</div>
+				@endif
+				
+				@if($legal->texto != null)
+				<div class="row">
+					<div class="col">
+						<textarea name="texto" class="form-control" cols="30" rows="10" id="editor" required>{{ $legal->texto }}</textarea>
+					</div>
+				</div>
+				@endif
 			</form>
 			
 			

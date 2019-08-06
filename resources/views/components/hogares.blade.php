@@ -1,4 +1,8 @@
 <div class="row mb-4">
+
+						<input type="hidden" name="latitud" id="lat" value="{{ $hogar != null ? $hogar->latitud: '-33.4372' }}">
+						<input type="hidden" name="longitud" id="long" value="{{ $hogar != null ? $hogar->longitud: '-70.6506' }}">
+
 						<div class="col-md-4">
 							<p>Nombre del Hogar</p>
 						</div>
@@ -16,6 +20,8 @@
 						</div>
 					</div>
 
+					<div id="map"></div>
+
 					<div class="row mb-4">
 						<div class="col-md-4">
 							<p>Teléfono</p>
@@ -27,10 +33,82 @@
 
 					<div class="row mb-4">
 						<div class="col-md-4">
+							<p>Email de contacto</p>
+						</div>
+						<div class="col">
+							<input type="email" name="email" value="{{ $hogar != null ? $hogar->email: '' }}" class="form-control">
+						</div>
+					</div>
+
+					<div class="row mb-4">
+						<div class="col-md-4">
 							<p>Breve descripción</p>
 						</div>
 						<div class="col">
 							<textarea name="descripcion" id="" class="form-control" cols="30" rows="10">{{ $hogar != null ? $hogar->descripcion : '' }}</textarea>
+						</div>
+					</div>
+
+					<div class="row mb-4">
+						<div class="col-md-4">
+							<p>Persona de contacto</p>
+						</div>
+						<div class="col">
+							<input type="text" name="contacto" value="{{ $hogar != null ? $hogar->contacto: '' }}" class="form-control">
+						</div>
+					</div>
+
+					<div class="row mb-4">
+						<div class="col-md-4">
+							<p>Twitter</p>
+						</div>
+						<div class="col">
+							<input type="text" name="twitter" value="{{ $hogar != null ? $hogar->twitter: '' }}" class="form-control">
+						</div>
+					</div>
+
+					<div class="row mb-4">
+						<div class="col-md-4">
+							<p>Facebook</p>
+						</div>
+						<div class="col">
+							<input type="text" name="facebook" value="{{ $hogar != null ? $hogar->facebook: '' }}" class="form-control">
+						</div>
+					</div>
+
+					<div class="row mb-4">
+						<div class="col-md-4">
+							<p>Instagram</p>
+						</div>
+						<div class="col">
+							<input type="text" name="instagram" value="{{ $hogar != null ? $hogar->instagram: '' }}" class="form-control">
+						</div>
+					</div>
+
+					<div class="row mb-4">
+						<div class="col-md-4">
+							<p>Youtube</p>
+						</div>
+						<div class="col">
+							<input type="text" name="youtube" value="{{ $hogar != null ? $hogar->youtube: '' }}" class="form-control">
+						</div>
+					</div>
+
+					<div class="row mb-4">
+						<div class="col-md-4">
+							<p>LinkedIn</p>
+						</div>
+						<div class="col">
+							<input type="text" name="linkedin" value="{{ $hogar != null ? $hogar->linkedin: '' }}" class="form-control">
+						</div>
+					</div>
+
+					<div class="row mb-4">
+						<div class="col-md-4">
+							<p>Google+</p>
+						</div>
+						<div class="col">
+							<input type="text" name="googleplus" value="{{ $hogar != null ? $hogar->googleplus: '' }}" class="form-control">
 						</div>
 					</div>
 

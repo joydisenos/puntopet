@@ -187,7 +187,7 @@
 				  <div class="modal-dialog modal-dialog-centered" role="document">
 				    <div class="modal-content">
 				      <div class="modal-header background-primary">
-				        <h6 class="modal-title text-white" id="exampleModalLongTitle">Agregar Negocio</h6>
+				        <h6 class="modal-title text-white" id="exampleModalLongTitle">Agregar Hogar</h6>
 				        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 				          <span aria-hidden="true">&times;</span>
 				        </button>

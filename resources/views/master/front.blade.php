@@ -203,7 +203,7 @@
 
           <div class="col-lg-3 col-md-6 footer-info">
             <h3>PuntoPet</h3>
-            <p>Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada terra videa magna derita valies darta donna mare fermentum iaculis eu non diam phasellus. Scelerisque felis imperdiet proin fermentum leo. Amet volutpat consequat mauris nunc congue.</p>
+            {!! App\Legal::descripcion() !!}
           </div>
 
           <div class="col-lg-3 col-md-6 footer-links">
@@ -225,13 +225,7 @@
 
           <div class="col-lg-3 col-md-6 footer-contact">
             <h4>Contacto</h4>
-            <p>
-              A108 Adam Street <br>
-              New York, NY 535022<br>
-              United States <br>
-              <strong>Phone:</strong> +1 5589 55488 55<br>
-              <strong>Email:</strong> info@example.com<br>
-            </p>
+            {!! App\Legal::contacto() !!}
 
             <div class="social-links">
               <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
