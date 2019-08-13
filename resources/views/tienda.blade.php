@@ -46,6 +46,21 @@
 		margin-bottom: 30px;
 		overflow: hidden;
 	}
+	.map-container{
+		position: relative;
+	}
+	.dir{
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		max-width: 70%;
+		box-shadow: 4px 4px 8px rgba(0,0,0,0.3);
+		background: #ffffff;
+		padding: 10px;
+	}
+	.dir p{
+		margin: 0px;
+	}
 	@if($tienda->foto_local != null )
 	.header-panel{
 		background-image: url('{{ asset( 'storage/archivos/'. $tienda->user->id . '/' . $tienda->foto_local ) }}') !important;
@@ -147,41 +162,51 @@
 					  </div>
 					  <div class="tab-pane fade" id="informacion" role="tabpanel" aria-labelledby="pills-profile-tab">
 
-					  	@if($tienda->descripcion != null)
 					  	<div class="row mb-4">
-					  		<div class="col">
-					  			<p>{{ $tienda->descripcion }}</p>
+					  		<div class="col-md-6">
+					  			@if($tienda->foto_local != null)
+								 <img src="{{ asset( 'storage/archivos/'. $tienda->user->id . '/' . $tienda->foto_local) }}" class="img-fluid mr-1" alt="Logo {{ $tienda->nombre }}">
+								@else
+								 <img src="{{ asset('images/paw.png') }}" class="img-fluid mr-1" alt="Logo {{ $tienda->nombre }}">
+								@endif
+								
+					  		</div>
+					  		<div class="col-md-6">
+								
+								@if($tienda->descripcion != null)
+									<p>{{ $tienda->descripcion }}</p>
+								@endif
+					  			<h6>Contacto:</h6>
+					  			@if($tienda->email != null)
+					  				<p><strong>Email:</strong> <a href="mailto:{{ $tienda->email }}">{{ $tienda->email }}</a></p>
+					  			@endif
+
+					  			@if($tienda->telefono != null)
+					  				<p><strong>Teléfono:</strong> {{ $tienda->telefono }}</p>
+					  			@endif
+
+					  			@if($tienda->contacto != null)
+					  				<p><strong>Persona de contacto:</strong> {{ $tienda->contacto }}</p>
+					  			@endif
+					  			
+					  		</div>
+					  	</div>
+
+					  	@if($tienda->direccion != null)
+					  	<div class="row mb-4">
+					  		<div class="col map-container">
+					  			<input type="hidden" name="latitud" id="lat" value="{{ $tienda->latitud }}">
+								<input type="hidden" name="longitud" id="long" value="{{ $tienda->longitud }}">
+					  			<div id="map"></div>
+					  			<div class="dir"><p>{{ $tienda->direccion }}</p></div>
 					  		</div>
 					  	</div>
 					  	@endif
 
-					  	@if($tienda->telefono != null)
-					  	<div class="row mb-4">
-					  		<div class="col">
-					  			<p><strong>Teléfono:</strong> {{ $tienda->telefono }}</p>
-					  		</div>
-					  	</div>
-					  	@endif
-
-					  	@if($tienda->email != null)
-					  	<div class="row mb-4">
-					  		<div class="col">
-					  			<p><strong>Email:</strong> {{ $tienda->email }}</p>
-					  		</div>
-					  	</div>
-					  	@endif
-
-					  	@if($tienda->contacto != null)
-					  	<div class="row mb-4">
-					  		<div class="col">
-					  			<p><strong>Persona de Contacto:</strong> {{ $tienda->contacto }}</p>
-					  		</div>
-					  	</div>
-					  	@endif
-						
+					 	
 						@if($tienda->twitter != null || $tienda->facebook != null || $tienda->instagram != null || $tienda->googleplus != null || $tienda->linkedin != null )
 					  	<div class="row mb-4">
-					  		<div class="col text-center">
+					  		<div class="col text-right">
 					  			<div class="social-links">
 					  			@if($tienda->twitter != null)
 					              <a href="{{ $tienda->twitter }}" class="twitter rounded p-2 background-primary text-white"><i class="fa fa-twitter"></i></a>
@@ -207,20 +232,7 @@
 					  	</div>
 					  	@endif
 						
-						@if($tienda->direccion != null)
-					  	<div class="row mb-4">
-					  		<div class="col">
-					  			<p><strong>Dirección:</strong> {{ $tienda->direccion }}</p>
-					  		</div>
-					  	</div>
-					  	<div class="row mb-4">
-					  		<div class="col">
-					  			<input type="hidden" name="latitud" id="lat" value="{{ $tienda->latitud }}">
-								<input type="hidden" name="longitud" id="long" value="{{ $tienda->longitud }}">
-					  			<div id="map"></div>
-					  		</div>
-					  	</div>
-					  	@endif
+						
 						
 						
 
@@ -384,8 +396,8 @@
 
 			var map2 = new mapboxgl.Map({
 			container: 'map', 
-			style: 'mapbox://styles/mapbox/streets-v11',
-			center: [long, lat], 
+			style: 'mapbox://styles/joydisenos/cjz7xli4s374q1cpg1h3hcvbj?optimize=true',
+			center: [long, lat],
 			zoom: 9 
 			});
 

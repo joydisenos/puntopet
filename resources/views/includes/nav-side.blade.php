@@ -23,6 +23,12 @@
 			</li>
 		</a>
 
+		<a href="{{ route('admin.slider') }}">
+		  	<li class="list-group-item {{ (URL::current() == route('admin.slider')) ? 'active' : ''}}">
+			  	<i class="fa fa-check mr-3" aria-hidden="true"></i> Slider
+			</li>
+		</a>
+
 		<a href="{{ route('admin.sesiones') }}">
 		  	<li class="list-group-item {{ (URL::current() == route('admin.sesiones')) ? 'active' : ''}}">
 			  	<i class="fa fa-cog mr-3" aria-hidden="true"></i> Sesiones
@@ -33,7 +39,7 @@
 		@role('negocio|dev')
 		<a href="{{ route('negocio.productos') }}">
 		  	<li class="list-group-item {{ (URL::current() == route('negocio.productos')) ? 'active' : ''}}">
-			  	<i class="fa fa-birthday-cake mr-3" aria-hidden="true"></i> Productos
+			  	<i class="fa fa-cubes mr-3" aria-hidden="true"></i> Productos
 			</li>
 		</a>
 
@@ -53,7 +59,7 @@
 
 		<a href="{{ route('negocio.envios') }}">
 		  	<li class="list-group-item {{ (URL::current() == route('negocio.envios')) ? 'active' : ''}}">
-			  	<i class="fa fa-info-circle mr-3" aria-hidden="true"></i> Envíos y Pagos
+			  	<i class="fa fa-truck mr-3" aria-hidden="true"></i> Envíos y Pagos
 			</li>
 		</a>
 		@elserole('hogar|dev')

@@ -904,6 +904,7 @@
   <!-- Template Main Javascript File -->
   <script src="{{ asset('js/main.js')}}"></script>
   <script src="{{ asset('js/toastr.js')}}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/places.js@1.16.4"></script>
 
   @yield('scripts')
 
@@ -931,6 +932,35 @@
 
   <script>
         $(document).ready(function(){
+
+          var placesAutocomplete = places({
+            appId: 'plGXL4THWSWQ',
+            apiKey: '50d89247afd701d5c502b3b060c7f82a',
+            container: document.querySelector('#direccion')
+          });
+
+          placesAutocomplete.on('change', 
+            //e => console.log(e.suggestion)
+            function (e){
+                lat = e.suggestion.latlng.lat;
+                long = e.suggestion.latlng.lng;
+
+                $('#lat').val(lat);
+                $('#long').val(long);
+
+                lngLat = e.suggestion.latlng;
+                //console.log(lngLat);
+                    map2
+                    .setCenter(lngLat);
+
+                    markerCurrent
+                    .setLngLat(lngLat)
+                    .addTo(map2);
+
+            }
+            );
+
+
             $('.tab-btn').click(function(e){
 
                 e.preventDefault();
@@ -962,6 +992,13 @@
                 button.addClass('active');
 
             });
+
+            $('.ciudad-select').change(function(){
+                ciudadId = $(this).val();
+                $('.comunas-list').hide();
+                $('.c-' + ciudadId).show();
+            });
+
         })
     </script>
 

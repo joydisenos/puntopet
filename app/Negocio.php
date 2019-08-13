@@ -14,6 +14,9 @@ class Negocio extends Model
         'descripcion',
         'telefono',
         'direccion',
+        'clase_id',
+        'ciudad_id',
+        'comuna_id',
         'email',
         'contacto',
         'latitud',
@@ -44,8 +47,8 @@ class Negocio extends Model
         return $this->where('nombre' , '!=' , null)
                     ->where('descripcion' , '!=' , null)
                     ->where('estatus' , 1)
+                    ->where('destacado' , 1)
                     ->orderByRaw('RAND()')
-                    ->take(6)
                     ->get();
     }
 

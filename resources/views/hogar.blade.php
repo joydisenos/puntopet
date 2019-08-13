@@ -39,6 +39,21 @@
 		margin-bottom: 30px;
 		overflow: hidden;
 	}
+	.map-container{
+		position: relative;
+	}
+	.dir{
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		max-width: 70%;
+		box-shadow: 4px 4px 8px rgba(0,0,0,0.3);
+		background: #ffffff;
+		padding: 10px;
+	}
+	.dir p{
+		margin: 0px;
+	}
 	@if($hogar->foto_local != null )
 	.header-panel{
 		background-image: url('{{ asset( 'storage/archivos/'. $hogar->user->id . '/' . $hogar->foto_local ) }}') !important;
@@ -124,41 +139,53 @@
 
 					<div class="tab-pane fade" id="informacion" role="tabpanel" aria-labelledby="pills-profile-tab">
 
-					  	@if($hogar->descripcion != null)
+					  	
+						<div class="row mb-4">
+					  		<div class="col-md-6">
+					  			@if($hogar->foto_local != null)
+								 <img src="{{ asset( 'storage/archivos/'. $hogar->user->id . '/' . $hogar->foto_local) }}" class="img-fluid mr-1" alt="Logo {{ $hogar->nombre }}">
+								@else
+								 <div class="img-cont" style="max-width: 300px; margin: 0 auto">
+								 	<img src="{{ asset('images/paw.png') }}" class="img-fluid mr-1" alt="Logo {{ $hogar->nombre }}">
+								 </div>
+								@endif
+								
+					  		</div>
+					  		<div class="col-md-6">
+								
+								@if($hogar->descripcion != null)
+									<p>{{ $hogar->descripcion }}</p>
+								@endif
+					  			<h6>Contacto:</h6>
+					  			@if($hogar->email != null)
+					  				<p><strong>Email:</strong> <a href="mailto:{{ $hogar->email }}">{{ $hogar->email }}</a></p>
+					  			@endif
+
+					  			@if($hogar->telefono != null)
+					  				<p><strong>Teléfono:</strong> {{ $hogar->telefono }}</p>
+					  			@endif
+
+					  			@if($hogar->contacto != null)
+					  				<p><strong>Persona de contacto:</strong> {{ $hogar->contacto }}</p>
+					  			@endif
+					  			
+					  		</div>
+					  	</div>
+
+					  	@if($hogar->direccion != null)
 					  	<div class="row mb-4">
-					  		<div class="col">
-					  			<p>{{ $hogar->descripcion }}</p>
+					  		<div class="col map-container">
+					  			<input type="hidden" name="latitud" id="lat" value="{{ $hogar->latitud }}">
+								<input type="hidden" name="longitud" id="long" value="{{ $hogar->longitud }}">
+					  			<div id="map"></div>
+					  			<div class="dir"><p>{{ $hogar->direccion }}</p></div>
 					  		</div>
 					  	</div>
 					  	@endif
 
-					  	@if($hogar->telefono != null)
-					  	<div class="row mb-4">
-					  		<div class="col">
-					  			<p><strong>Teléfono:</strong> {{ $hogar->telefono }}</p>
-					  		</div>
-					  	</div>
-					  	@endif
-
-					  	@if($hogar->email != null)
-					  	<div class="row mb-4">
-					  		<div class="col">
-					  			<p><strong>Email:</strong> {{ $hogar->email }}</p>
-					  		</div>
-					  	</div>
-					  	@endif
-
-					  	@if($hogar->contacto != null)
-					  	<div class="row mb-4">
-					  		<div class="col">
-					  			<p><strong>Persona de Contacto:</strong> {{ $hogar->contacto }}</p>
-					  		</div>
-					  	</div>
-					  	@endif
-						
 						@if($hogar->twitter != null || $hogar->facebook != null || $hogar->instagram != null || $hogar->googleplus != null || $hogar->linkedin != null )
 					  	<div class="row mb-4">
-					  		<div class="col text-center">
+					  		<div class="col text-right">
 					  			<div class="social-links">
 					  			@if($hogar->twitter != null)
 					              <a href="{{ $hogar->twitter }}" class="twitter rounded p-2 background-primary text-white"><i class="fa fa-twitter"></i></a>
@@ -184,20 +211,7 @@
 					  	</div>
 					  	@endif
 						
-						@if($hogar->direccion != null)
-					  	<div class="row mb-4">
-					  		<div class="col">
-					  			<p><strong>Dirección:</strong> {{ $hogar->direccion }}</p>
-					  		</div>
-					  	</div>
-					  	<div class="row mb-4">
-					  		<div class="col">
-					  			<input type="hidden" name="latitud" id="lat" value="{{ $hogar->latitud }}">
-								<input type="hidden" name="longitud" id="long" value="{{ $hogar->longitud }}">
-					  			<div id="map"></div>
-					  		</div>
-					  	</div>
-					  	@endif
+						
 						
 						<div class="row">
 					  	@foreach($hogar->fotos as $foto)
@@ -274,7 +288,7 @@
 
 			var map2 = new mapboxgl.Map({
 			container: 'map', 
-			style: 'mapbox://styles/mapbox/streets-v11',
+			style: 'mapbox://styles/joydisenos/cjz7xli4s374q1cpg1h3hcvbj?optimize=true',
 			center: [long, lat], 
 			zoom: 9 
 			});

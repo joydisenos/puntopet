@@ -12,6 +12,8 @@ class Hogar extends Model
         'nombre',
         'slug',
         'descripcion',
+        'ciudad_id',
+        'comuna_id',
         'telefono',
         'direccion',
         'email',

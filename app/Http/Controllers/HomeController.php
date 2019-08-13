@@ -18,7 +18,7 @@ class HomeController extends Controller
         $tiendas = $tiendasRef->tiendasSlider();
         $productosRef = new Producto();
         $productos = $productosRef->productosHome();
-
+        
         return view('home' , compact('tiendas' , 'productos'));
     }
 

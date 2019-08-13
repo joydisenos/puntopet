@@ -20,6 +20,8 @@ class CreateHogarsTable extends Migration
             $table->string('slug')->nullable();
             $table->text('descripcion')->nullable();
             $table->text('direccion')->nullable();
+            $table->string('ciudad_id')->nullable();
+            $table->string('comuna_id')->nullable();
             $table->string('telefono')->nullable();
              $table->string('email')->nullable();
             $table->string('contacto')->nullable();

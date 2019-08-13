@@ -9,6 +9,41 @@
 	<div class="row">
 		
 		<div class="col pt-4 pb-4 mt-4 mb-4">
+
+			<div class="row mb-4">
+				<div class="col">
+					<h6>Búsqueda:</h6>
+				</div>
+				<div class="col">
+					<form action="#" id="nombre-buscar">
+						<input type="text" placeholder="Nombre" class="form-control">
+					</form>
+				</div>
+				<div class="col">
+					<select name="tipo" class="form-control" id="">
+						<option value="">Tipo de Negocio</option>
+						@foreach(App\Clase::clases() as $clase)
+						<option value="{{ $clase->slug }}">{{ title_case($clase->nombre) }}</option>
+						@endforeach
+					</select>
+				</div>
+				<div class="col">
+					<select name="ciudad" class="form-control" id="">
+						<option value="">Ciudad</option>
+						@foreach(App\Ciudad::ciudades() as $ciudad)
+						<option value="{{ $ciudad->slug }}">{{ title_case($ciudad->nombre) }}</option>
+						@endforeach
+					</select>
+				</div>
+				<div class="col">
+					<select name="tipo" class="form-control" id="">
+						<option value="">Comuna</option>
+						@foreach(App\Comuna::comunas() as $comuna)
+						<option value="{{ $comuna->slug }}">{{ title_case($comuna->nombre) }}</option>
+						@endforeach
+					</select>
+				</div>
+			</div>
 			
 			<div class="row">
 				
@@ -37,4 +72,13 @@
 
 	</div>
 </div>
+@endsection
+@section('scripts')
+<script>
+	$(document).ready(function(){
+		$('#nombre-buscar').on('submit' , function(e){
+			e.preventDefault();
+		})
+	});
+</script>
 @endsection

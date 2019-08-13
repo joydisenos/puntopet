@@ -74,6 +74,8 @@ Route::prefix('panel')->middleware('auth')->middleware('role:hogar|negocio')->gr
 
 		Route::post('/guardar/producto', 'NegocioController@guardarProducto')->name('negocio.guardar.producto');
 		Route::get('/modificar/producto/{id}', 'NegocioController@modificarProducto')->name('negocio.modificar.producto');
+		
+		Route::post('/modificar/estatus/producto', 'NegocioController@modificarProductoEstatus')->name('producto.actualizar.estatus');
 
 		Route::post('/guardar/mascota', 'NegocioController@guardarMascota')->name('negocio.guardar.mascota');
 		Route::get('/modificar/mascota/{id}', 'NegocioController@modificarMascota')->name('negocio.modificar.mascota');
@@ -92,9 +94,18 @@ Route::prefix('panel')->middleware('auth')->middleware('role:hogar|negocio')->gr
 
 Route::prefix('admin')->middleware('auth')->middleware('role:admin')->group( function () {
 		Route::get('/configuraciones', 'AdminController@configuraciones')->name('admin.configuraciones');
+		
 		Route::get('/seccion/{pag}', 'AdminController@seccion')->name('admin.editar.seccion');
 		Route::post('/seccion/{id}', 'AdminController@actualizarSeccion')->name('admin.actualizar.seccion');
+		Route::get('/administrar/tipos-de-negocio', 'AdminController@tiposNegocio')->name('admin.editar.tipos.negocio');
+		Route::get('/eliminar/tipos-de-negocio/{id}', 'AdminController@eliminarTiposNegocio')->name('admin.eliminar.tipos.negocio');
+		Route::post('/registrar/tipos-de-negocio', 'AdminController@registrarTiposNegocio')->name('admin.registrar.tipos.negocio');
+		
 		Route::get('/usuarios', 'AdminController@usuarios')->name('admin.usuarios');
+		
 		Route::get('/sesiones', 'AdminController@sesiones')->name('admin.sesiones');
 		Route::get('/sesiones/{slug}', 'AdminController@sesionesNegocio')->name('admin.sesiones.negocio');
+		
+		Route::get('/slider', 'AdminController@slider')->name('admin.slider');
+		Route::post('/slider/destacar', 'AdminController@sliderDestacar')->name('admin.slider.destacar');
 	});

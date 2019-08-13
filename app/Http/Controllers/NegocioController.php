@@ -184,6 +184,23 @@ class NegocioController extends Controller
     	return view('negocio.editarproducto' , compact('producto'));
     }
 
+    public function modificarProductoEstatus(Request $request)
+    {
+        $producto = Producto::findOrFail($request->id);
+        
+        if($producto->estatus == 0)
+        {
+            $producto->estatus = 1;
+        }else{
+            $producto->estatus = 0;
+        }
+        $producto->save();
+
+        return response()->json([
+                                    'estatus' => $producto->estatus
+                                ]);
+    }
+
     public function modificarMascota($id)
     {
         $mascota = Mascota::findOrFail($id);

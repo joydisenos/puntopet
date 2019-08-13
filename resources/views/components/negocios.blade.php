@@ -1,6 +1,6 @@
 <div class="row mb-4">
-						<input type="hidden" name="latitud" id="lat" value="{{ $negocio != null ? $negocio->latitud: '-33.4372' }}">
-						<input type="hidden" name="longitud" id="long" value="{{ $negocio != null ? $negocio->longitud: '-70.6506' }}">
+						<input type="hidden" name="latitud" id="lat" class="direcciones" value="{{ $negocio != null ? $negocio->latitud: '-33.4372' }}">
+						<input type="hidden" name="longitud" id="long" class="direcciones" value="{{ $negocio != null ? $negocio->longitud: '-70.6506' }}">
 
 						<div class="col-md-4">
 							<p>Nombre del Negocio</p>
@@ -12,10 +12,52 @@
 
 					<div class="row mb-4">
 						<div class="col-md-4">
+							<p>Tipo de Negocio</p>
+						</div>
+						<div class="col">
+							<select name="clase_id" id="" class="form-control">
+								<option value="">Seleccione un tipo</option>
+								@foreach(App\Clase::all() as $tipo)
+								<option value="{{ $tipo->id }}" {{ $negocio != null && $negocio->clase_id == $tipo->id ? 'selected'  : '' }}>{{ str_slug($tipo->nombre) }}</option>
+								@endforeach
+							</select>
+						</div>
+					</div>
+
+					<div class="row mb-4">
+						<div class="col-md-4">
 							<p>Dirección</p>
 						</div>
 						<div class="col">
-							<input type="text" name="direccion" value="{{ $negocio != null ? $negocio->direccion: '' }}" class="form-control">
+							<input type="text" name="direccion" id="direccion" value="{{ $negocio != null ? $negocio->direccion: '' }}" class="form-control">
+						</div>
+					</div>
+
+					<div class="row mb-4">
+						<div class="col-md-4">
+							<p>Ciudad</p>
+						</div>
+						<div class="col">
+							<select name="ciudad_id" class="form-control ciudad-select">
+								<option>Seleccione su Ciudad</option>
+								@foreach(App\Ciudad::ciudades() as $ciudad)
+								<option value="{{ $ciudad->id }}" {{ $negocio != null && $negocio->ciudad_id == $ciudad->id? 'selected' : '' }}>{{ $ciudad->nombre }}</option>
+								@endforeach
+							</select>
+						</div>
+					</div>
+
+					<div class="row mb-4">
+						<div class="col-md-4">
+							<p>Comuna</p>
+						</div>
+						<div class="col">
+							<select name="comuna_id" class="form-control">
+								<option>Seleccione su Comuna</option>
+								@foreach(App\Comuna::comunas() as $comuna)
+								<option value="{{ $comuna->id }}" class="ocultar comunas-list c-{{ $comuna->ciudad_id }}" {{ $negocio != null && $negocio->comuna_id == $comuna->id? 'selected' : '' }}>{{ $comuna->nombre }}</option>
+								@endforeach
+							</select>
 						</div>
 					</div>
 

@@ -19,6 +19,10 @@ class CreateNegociosTable extends Migration
             $table->string('nombre')->nullable();
             $table->string('slug')->nullable();
             $table->text('descripcion')->nullable();
+            $table->integer('destacado')->default(0);
+            $table->integer('clase_id')->nullable();
+            $table->string('ciudad_id')->nullable();
+            $table->string('comuna_id')->nullable();
             $table->text('direccion')->nullable();
             $table->string('telefono')->nullable();
             $table->string('email')->nullable();

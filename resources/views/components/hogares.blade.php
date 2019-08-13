@@ -1,7 +1,7 @@
 <div class="row mb-4">
 
-						<input type="hidden" name="latitud" id="lat" value="{{ $hogar != null ? $hogar->latitud: '-33.4372' }}">
-						<input type="hidden" name="longitud" id="long" value="{{ $hogar != null ? $hogar->longitud: '-70.6506' }}">
+						<input type="hidden" name="latitud" id="lat" class="direcciones" value="{{ $hogar != null ? $hogar->latitud: '-33.4372' }}">
+						<input type="hidden" name="longitud" id="long" class="direcciones" value="{{ $hogar != null ? $hogar->longitud: '-70.6506' }}">
 
 						<div class="col-md-4">
 							<p>Nombre del Hogar</p>
@@ -16,7 +16,33 @@
 							<p>Dirección</p>
 						</div>
 						<div class="col">
-							<input type="text" name="direccion" value="{{ $hogar != null ? $hogar->direccion: '' }}" class="form-control">
+							<input type="text" name="direccion" id="direccion" value="{{ $hogar != null ? $hogar->direccion: '' }}" class="form-control">
+						</div>
+					</div>
+
+					<div class="row mb-4">
+						<div class="col-md-4">
+							<p>Ciudad</p>
+						</div>
+						<div class="col">
+							<select name="ciudad_id" class="form-control ciudad-select">
+								@foreach(App\Ciudad::ciudades() as $ciudad)
+								<option value="{{ $ciudad->id }}" {{ $hogar != null && $hogar->ciudad_id == $ciudad->id? 'selected' : '' }}>{{ $ciudad->nombre }}</option>
+								@endforeach
+							</select>
+						</div>
+					</div>
+
+					<div class="row mb-4">
+						<div class="col-md-4">
+							<p>Comuna</p>
+						</div>
+						<div class="col">
+							<select name="comuna_id" class="form-control">
+								@foreach(App\Comuna::comunas() as $comuna)
+								<option value="{{ $comuna->id }}" class="ocultar comunas-list c-{{ $comuna->ciudad_id }}" {{ $hogar != null && $hogar->comuna_id == $comuna->id? 'selected' : '' }}>{{ $comuna->nombre }}</option>
+								@endforeach
+							</select>
 						</div>
 					</div>
 
