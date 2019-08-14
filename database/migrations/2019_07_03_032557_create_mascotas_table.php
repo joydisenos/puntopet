@@ -20,6 +20,7 @@ class CreateMascotasTable extends Migration
             $table->string('nombre')->nullable();
             $table->text('descripcion')->nullable();
             $table->string('foto')->nullable();
+            $table->integer('estatus')->default(1);
             $table->timestamps();
         });
     }

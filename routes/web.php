@@ -22,8 +22,15 @@ Route::get('/nosotros/{pagina}', 'HomeController@nosotros')->name('nosotros.pagi
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/tiendas', 'HomeController@tiendas')->name('tiendas');
 Route::get('/hogares', 'HomeController@hogares')->name('hogares');
+Route::get('/productos', 'HomeController@productos')->name('productos');
+Route::get('/mascotas', 'HomeController@mascotas')->name('mascotas');
 Route::get('/tienda/{slug}', 'HomeController@tienda')->name('ver.tienda');
 Route::get('/hogar/{slug}', 'HomeController@hogar')->name('ver.hogar');
+//Busqueda
+Route::get('/buscar/tiendas', 'HomeController@buscarTienda')->name('buscar.tienda.nombre');
+Route::get('/buscar/hogares', 'HomeController@buscarHogar')->name('buscar.hogar.nombre');
+Route::get('/buscar/productos', 'HomeController@buscarProductos')->name('buscar.producto.nombre');
+Route::get('/buscar/mascotas', 'HomeController@buscarMascotas')->name('buscar.mascota.nombre');
 
 Route::get('/agregarcarro/{id}', 'UsuarioController@agregarCarrito')->name('agregar.carrito');
 Route::get('/eliminarcarro/{id}', 'UsuarioController@eliminarCarrito')->name('eliminar.carrito');

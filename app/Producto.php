@@ -27,6 +27,12 @@ class Producto extends Model
                     ->get();
     }
 
+    public function productos()
+    {
+        return $this->where('estatus' , 1)
+                    ->get();
+    }
+
      public function user()
     {
         return $this->belongsTo(User::class , 'user_id');

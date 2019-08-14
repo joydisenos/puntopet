@@ -46,147 +46,17 @@
   </section><!-- #intro -->
 
   <main id="main">
-
-    <!--==========================
-      Featured Services Section
-    ============================-->
-    <!--<section id="featured-services">
-      <div class="container">
-        <div class="row">
-
-          <div class="col-lg-4 box">
-            <i class="ion-ios-bookmarks-outline"></i>
-            <h4 class="title"><a href="">Lorem Ipsum Delino</a></h4>
-            <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
-          </div>
-
-          <div class="col-lg-4 box box-bg">
-            <i class="ion-ios-stopwatch-outline"></i>
-            <h4 class="title"><a href="">Dolor Sitema</a></h4>
-            <p class="description">Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad limino ata</p>
-          </div>
-
-          <div class="col-lg-4 box">
-            <i class="ion-ios-heart-outline"></i>
-            <h4 class="title"><a href="">Sed ut perspiciatis</a></h4>
-            <p class="description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>
-          </div>
-
-        </div>
-      </div>
-    </section>--><!-- #featured-services -->
-
-    <!--==========================
-      About Us Section
-    ============================-->
-    <!--<section id="about">
-      <div class="container">
-
-        <header class="section-header">
-          <h3>Nosotros</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-        </header>
-
-        <div class="row about-cols">
-
-          <div class="col-md-4 wow fadeInUp">
-            <div class="about-col">
-              <div class="img">
-                <img src="{{ asset('img/about-mission.jpg')}}" alt="" class="img-fluid">
-                <div class="icon"><i class="ion-ios-speedometer-outline"></i></div>
-              </div>
-              <h2 class="title"><a href="#">Misión</a></h2>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-              </p>
-            </div>
-          </div>
-
-          <div class="col-md-4 wow fadeInUp" data-wow-delay="0.1s">
-            <div class="about-col">
-              <div class="img">
-                <img src="{{ asset('img/about-plan.jpg')}}" alt="" class="img-fluid">
-                <div class="icon"><i class="ion-ios-list-outline"></i></div>
-              </div>
-              <h2 class="title"><a href="#">Objetivos</a></h2>
-              <p>
-                Sed ut perspiciatis unde omnis iste natus error sit voluptatem  doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-              </p>
-            </div>
-          </div>
-
-          <div class="col-md-4 wow fadeInUp" data-wow-delay="0.2s">
-            <div class="about-col">
-              <div class="img">
-                <img src="{{ asset('img/about-vision.jpg')}}" alt="" class="img-fluid">
-                <div class="icon"><i class="ion-ios-eye-outline"></i></div>
-              </div>
-              <h2 class="title"><a href="#">Visión</a></h2>
-              <p>
-                Nemo enim ipsam voluptatem quia voluptas sit aut odit aut fugit, sed quia magni dolores eos qui ratione voluptatem sequi nesciunt Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.
-              </p>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </section>--><!-- #about -->
-
-    <!--==========================
-      Services Section
-    ============================-->
-    <!--<section id="services">
-      <div class="container">
-
-        <header class="section-header wow fadeInUp">
-          <h3>Servicios</h3>
-          <p>Laudem latine persequeris id sed, ex fabulas delectus quo. No vel partiendo abhorreant vituperatoribus, ad pro quaestio laboramus. Ei ubique vivendum pro. At ius nisl accusam lorenta zanos paradigno tridexa panatarel.</p>
-        </header>
-
-        <div class="row">
-
-          <div class="col-lg-4 col-md-6 box wow bounceInUp" data-wow-duration="1.4s">
-            <div class="icon"><i class="ion-ios-analytics-outline"></i></div>
-            <h4 class="title"><a href="">Servicio 1</a></h4>
-            <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
-          </div>
-          <div class="col-lg-4 col-md-6 box wow bounceInUp" data-wow-duration="1.4s">
-            <div class="icon"><i class="ion-ios-bookmarks-outline"></i></div>
-            <h4 class="title"><a href="">Servicio 2</a></h4>
-            <p class="description">Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad limino ata</p>
-          </div>
-          <div class="col-lg-4 col-md-6 box wow bounceInUp" data-wow-duration="1.4s">
-            <div class="icon"><i class="ion-ios-paper-outline"></i></div>
-            <h4 class="title"><a href="">Servicio 3</a></h4>
-            <p class="description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>
-          </div>
-          <div class="col-lg-4 col-md-6 box wow bounceInUp" data-wow-delay="0.1s" data-wow-duration="1.4s">
-            <div class="icon"><i class="ion-ios-speedometer-outline"></i></div>
-            <h4 class="title"><a href="">Servicio 4</a></h4>
-            <p class="description">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
-          </div>
-          <div class="col-lg-4 col-md-6 box wow bounceInUp" data-wow-delay="0.1s" data-wow-duration="1.4s">
-            <div class="icon"><i class="ion-ios-barcode-outline"></i></div>
-            <h4 class="title"><a href="">Servicio 5</a></h4>
-            <p class="description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque</p>
-          </div>
-          <div class="col-lg-4 col-md-6 box wow bounceInUp" data-wow-delay="0.1s" data-wow-duration="1.4s">
-            <div class="icon"><i class="ion-ios-people-outline"></i></div>
-            <h4 class="title"><a href="">Servicio 6</a></h4>
-            <p class="description">Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi</p>
-          </div>
-
-        </div>
-
-      </div>
-    </section>--> <!-- #services -->
     
     <section class="mt-4 mb-4">
       <div class="container">
         <div class="row">
+          <div class="col text-center">
+            <h1 class="border-bottom">Productos</h1>
+          </div>
+        </div>
+        <div class="row">
           @foreach($productos as $producto)
-            <div class="col-md-3">
+            <div class="col-md-3 mb-4">
              
               <div class="fondo-foto"
               @if($producto->foto == null)
@@ -207,6 +77,47 @@
                   @endif 
                   rel="lightbox">Ampliar imagen</a></p>
                 <p><a href="{{ route('ver.tienda' , [$producto->negocio->slug]) }}">Visitar tienda</a></p>
+                  
+
+              </div>
+            </div>
+
+            </div>
+          @endforeach
+        </div>
+      </div>
+    </section>
+
+     <section class="mt-4 mb-4">
+      <div class="container">
+        <div class="row">
+          <div class="col text-center">
+            <h1 class="border-bottom">Mascotas</h1>
+          </div>
+        </div>
+        <div class="row">
+          @foreach($mascotas as $mascota)
+            <div class="col-md-3 mb-4">
+             
+              <div class="fondo-foto"
+              @if($mascota->foto == null)
+              style="background-image: url('{{ asset( 'img/channey-528973-unsplash.jpg' ) }}');"
+              @else 
+              style="background-image: url('{{ asset( 'storage/archivos/'. $mascota->user->id . '/' . $mascota->foto ) }}');"
+              @endif
+              >
+            
+              <div class="fondo">
+                <h6 class="border-bottom">{{ title_case($mascota->nombre) }}</h6>
+                <p>{{ str_limit( $mascota->descripcion , 200) }}</p>
+                <p><a 
+                  @if($mascota->foto == null)
+                  href="{{ asset( 'img/channey-528973-unsplash.jpg' ) }}"
+                  @else
+                  href="{{ asset( 'storage/archivos/'. $mascota->hogar->user->id . '/' . $mascota->foto ) }}"
+                  @endif 
+                  rel="lightbox">Ampliar imagen</a></p>
+                <p><a href="{{ route('ver.tienda' , [$mascota->hogar->slug]) }}">Visitar hogar</a></p>
                   
 
               </div>

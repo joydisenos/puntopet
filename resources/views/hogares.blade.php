@@ -44,6 +44,39 @@
 	<div class="row">
 		
 		<div class="col pt-4 pb-4 mt-4 mb-4">
+
+			<div class="row mb-4">
+				<div class="col">
+					<h6>Búsqueda:</h6>
+				</div>
+				
+				<div class="col">
+					<form action="{{ route('buscar.hogar.nombre') }}" class="form-buscar">
+						<input type="text" placeholder="Nombre" class="form-control" name="nombre">
+					</form>
+				</div>
+				
+				<div class="col">
+					<form action="{{ route('buscar.hogar.nombre') }}" class="form-buscar">
+					<select name="ciudad" class="form-control" id="">
+						<option value="">Ciudad</option>
+						@foreach(App\Ciudad::ciudades() as $ciudad)
+						<option value="{{ $ciudad->slug }}">{{ title_case($ciudad->nombre) }}</option>
+						@endforeach
+					</select>
+					</form>
+				</div>
+				<div class="col">
+					<form action="{{ route('buscar.hogar.nombre') }}" class="form-buscar">
+					<select name="comuna" class="form-control" id="">
+						<option value="">Comuna</option>
+						@foreach(App\Comuna::comunas() as $comuna)
+						<option value="{{ $comuna->slug }}">{{ title_case($comuna->nombre) }}</option>
+						@endforeach
+					</select>
+					</form>
+				</div>
+			</div>
 			
 			<div class="row">
 				

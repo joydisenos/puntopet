@@ -109,10 +109,6 @@
 
                                 <ul class="nav-menu">
                                     
-                                    
-                                   <!-- <li class="">
-                                        <a class="nav-link" href="{{ (URL::current() == url('/')) ? '#about' : url('/#about') }}">Nosotros</a>
-                                    </li>-->
 
                                     <li class="">
                                         <a class="scrollto" href="{{ (URL::current() == url('/')) ? '#contact' : url('/#contact') }}">Contacto</a>
@@ -124,6 +120,14 @@
 
                                     <li class="">
                                         <a href="{{ route('hogares') }}">Hogares</a>
+                                    </li>
+
+                                    <li class="">
+                                        <a href="{{ route('productos') }}">Productos</a>
+                                    </li>
+
+                                    <li class="">
+                                        <a href="{{ route('mascotas') }}">Mascotas</a>
                                     </li>
                                     
                                     @guest

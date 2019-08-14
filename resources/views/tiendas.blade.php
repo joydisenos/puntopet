@@ -15,37 +15,51 @@
 					<h6>Búsqueda:</h6>
 				</div>
 				<div class="col">
-					<form action="#" id="nombre-buscar">
-						<input type="text" placeholder="Nombre" class="form-control">
+					<form action="{{ route('buscar.tienda.nombre') }}" class="form-buscar">
+						<input type="text" placeholder="Nombre" class="form-control" name="nombre">
 					</form>
 				</div>
 				<div class="col">
-					<select name="tipo" class="form-control" id="">
+					<form action="{{ route('buscar.tienda.nombre') }}" class="form-buscar">
+					<select name="tipo" class="form-control">
 						<option value="">Tipo de Negocio</option>
 						@foreach(App\Clase::clases() as $clase)
 						<option value="{{ $clase->slug }}">{{ title_case($clase->nombre) }}</option>
 						@endforeach
 					</select>
+					</form>
 				</div>
 				<div class="col">
+					<form action="{{ route('buscar.tienda.nombre') }}" class="form-buscar">
 					<select name="ciudad" class="form-control" id="">
 						<option value="">Ciudad</option>
 						@foreach(App\Ciudad::ciudades() as $ciudad)
 						<option value="{{ $ciudad->slug }}">{{ title_case($ciudad->nombre) }}</option>
 						@endforeach
 					</select>
+					</form>
 				</div>
 				<div class="col">
-					<select name="tipo" class="form-control" id="">
+					<form action="{{ route('buscar.tienda.nombre') }}" class="form-buscar">
+					<select name="comuna" class="form-control" id="">
 						<option value="">Comuna</option>
 						@foreach(App\Comuna::comunas() as $comuna)
 						<option value="{{ $comuna->slug }}">{{ title_case($comuna->nombre) }}</option>
 						@endforeach
 					</select>
+					</form>
 				</div>
 			</div>
 			
 			<div class="row">
+
+				@if($tiendas->count() == 0)
+					<div class="col text-center">
+
+						<h2>No se encontraron tiendas!</h2>
+						<img src="{{ asset('images/paw.png') }}" style="max-width: 300px" alt="">
+					</div>
+				@endif
 				
 			@foreach($tiendas as $tienda)
 				<div class="col-md-3 m-0 p-0 p-md-1">
@@ -76,9 +90,9 @@
 @section('scripts')
 <script>
 	$(document).ready(function(){
-		$('#nombre-buscar').on('submit' , function(e){
-			e.preventDefault();
-		})
+		$('.form-buscar').change(function(){
+			$(this).submit();
+		});
 	});
 </script>
 @endsection
