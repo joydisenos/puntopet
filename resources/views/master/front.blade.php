@@ -82,13 +82,44 @@
     opacity: 1;
     transform: translateY(0);
   }
+  .card-fondo{
+    background: rgba(24,210,110,0.1);
+    box-shadow: 0px 0px 8px rgba(0,0,0,0.1);
+    transition: all ease .5s;
+  }
+  .card-fondo:hover{
+    box-shadow: 0px 0px 18px rgba(0,0,0,0.3);
+  }
+  .color-primary{
+    color: #18d26e;
+  }
+  .bg-primary{
+    background-color: #18d26e !important;
+  }
+  #btn-filtro{
+    position: absolute;
+    top: 160px;
+    left: 0;
+    z-index: 999;
+  }
+  .compartir-btn{
+    position:fixed;
+    left: 10px;
+    bottom: 60px;
+    z-index: 999;
+  }
+  .botones-compartir{
+    display: inline-block;
+    transform: translateX(50px);
+    opacity: 0;
+    transition: all ease .5s;
+  }
+  .compartir-btn:hover .botones-compartir{
+    transform: translateX(0px);
+    opacity: 1;
+  }
 </style>
-  <!-- =======================================================
-    Theme Name: BizPage
-    Theme URL: https://bootstrapmade.com/bizpage-bootstrap-business-template/
-    Author: BootstrapMade.com
-    License: https://bootstrapmade.com/license/
-  ======================================================= -->
+  
 </head>
 
 <body>
@@ -128,6 +159,10 @@
 
                                     <li class="">
                                         <a href="{{ route('mascotas') }}">Mascotas</a>
+                                    </li>
+
+                                    <li class="">
+                                        <a href="{{ route('blog') }}">Foro</a>
                                     </li>
                                     
                                     @guest
@@ -937,32 +972,11 @@
   <script>
         $(document).ready(function(){
 
-          var placesAutocomplete = places({
-            appId: 'plGXL4THWSWQ',
-            apiKey: '50d89247afd701d5c502b3b060c7f82a',
-            container: document.querySelector('#direccion')
+          $('.busqueda-toggle').click(function(){
+            $('#filtros-buscar').slideToggle();
           });
 
-          placesAutocomplete.on('change', 
-            //e => console.log(e.suggestion)
-            function (e){
-                lat = e.suggestion.latlng.lat;
-                long = e.suggestion.latlng.lng;
-
-                $('#lat').val(lat);
-                $('#long').val(long);
-
-                lngLat = e.suggestion.latlng;
-                //console.log(lngLat);
-                    map2
-                    .setCenter(lngLat);
-
-                    markerCurrent
-                    .setLngLat(lngLat)
-                    .addTo(map2);
-
-            }
-            );
+          
 
 
             $('.tab-btn').click(function(e){
@@ -1003,7 +1017,42 @@
                 $('.c-' + ciudadId).show();
             });
 
-        })
+            if( $('#direccion').length > 0)
+            {
+
+
+            var placesAutocomplete = places({
+              appId: 'plGXL4THWSWQ',
+              apiKey: '50d89247afd701d5c502b3b060c7f82a',
+              container: document.querySelector('#direccion')
+            });
+
+            placesAutocomplete.on('change', 
+              //e => console.log(e.suggestion)
+              function (e){
+                  lat = e.suggestion.latlng.lat;
+                  long = e.suggestion.latlng.lng;
+
+                  $('#lat').val(lat);
+                  $('#long').val(long);
+
+                  lngLat = e.suggestion.latlng;
+                  //console.log(lngLat);
+                      map2
+                      .setCenter(lngLat);
+
+                      markerCurrent
+                      .setLngLat(lngLat)
+                      .addTo(map2);
+
+              }
+              );
+
+            }
+
+            
+
+        });
     </script>
 
 </body>

@@ -40,45 +40,63 @@
     @slot('titulo' , 'Hogares para mascotas')
 @endcomponent
 
+			<div class="text-white bg-primary text-right p-2 rounded-right busqueda-toggle" id="btn-filtro">
+					<i class="fa fa-filter"></i>
+			</div>
+
 <div class="container">
 	<div class="row">
+
+		<div class="col-md-2 pt-4 pb-4 mt-4 mb-0" id="filtros-buscar">
+
+			
+			
+			<div class="row">
+				<div class="col">
+					<h6 class="text-center color-primary"><strong>Búsqueda</strong></h6>
+					<hr class="color-primary">
+				<form action="{{ route('buscar.hogar.nombre') }}" class="form-buscar">
+					<input type="text" placeholder="Nombre" class="form-control bg-primary text-white mb-3" value="{{ isset($_GET['nombre']) ? $_GET['nombre'] : '' }}" name="nombre">
+
+					<select name="ciudad" class="form-control bg-primary text-white mb-3" id="">
+						<option value="">Ciudad</option>
+						@foreach(App\Ciudad::ciudades() as $ciudad)
+						<option value="{{ $ciudad->slug }}" {{ isset($_GET['ciudad']) && $_GET['ciudad'] == $ciudad->slug ? 'selected' : '' }}>{{ title_case($ciudad->nombre) }}</option>
+						@endforeach
+					</select>
+
+					<select name="comuna" class="form-control bg-primary text-white mb-3" id="">
+						<option value="">Comuna</option>
+						@foreach(App\Comuna::comunas() as $comuna)
+						<option value="{{ $comuna->slug }}" {{ isset($_GET['comuna']) && $_GET['comuna'] == $comuna->slug ? 'selected' : '' }}>{{ title_case($comuna->nombre) }}</option>
+						@endforeach
+					</select>
+
+					<button type="submit" class="btn btn-primary">Buscar</button>
+				</form>
+				
+				
+
+				</div>
+			</div>
+
+			
+			
+		</div>
 		
 		<div class="col pt-4 pb-4 mt-4 mb-4">
 
-			<div class="row mb-4">
-				<div class="col">
-					<h6>Búsqueda:</h6>
-				</div>
-				
-				<div class="col">
-					<form action="{{ route('buscar.hogar.nombre') }}" class="form-buscar">
-						<input type="text" placeholder="Nombre" class="form-control" name="nombre">
-					</form>
-				</div>
-				
-				<div class="col">
-					<form action="{{ route('buscar.hogar.nombre') }}" class="form-buscar">
-					<select name="ciudad" class="form-control" id="">
-						<option value="">Ciudad</option>
-						@foreach(App\Ciudad::ciudades() as $ciudad)
-						<option value="{{ $ciudad->slug }}">{{ title_case($ciudad->nombre) }}</option>
-						@endforeach
-					</select>
-					</form>
-				</div>
-				<div class="col">
-					<form action="{{ route('buscar.hogar.nombre') }}" class="form-buscar">
-					<select name="comuna" class="form-control" id="">
-						<option value="">Comuna</option>
-						@foreach(App\Comuna::comunas() as $comuna)
-						<option value="{{ $comuna->slug }}">{{ title_case($comuna->nombre) }}</option>
-						@endforeach
-					</select>
-					</form>
-				</div>
-			</div>
+			
 			
 			<div class="row">
+
+				@if($tiendas->count() == 0)
+					<div class="col text-center">
+
+						<h2>No se encontraron hogares!</h2>
+						<img src="{{ asset('images/paw.png') }}" style="max-width: 300px" alt="">
+					</div>
+				@endif
 				
 			@foreach($tiendas as $tienda)
 				<div class="col-md-3 m-0 p-0 p-md-1">

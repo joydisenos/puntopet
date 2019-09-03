@@ -50,8 +50,8 @@
     <section class="mt-4 mb-4">
       <div class="container">
         <div class="row">
-          <div class="col text-center">
-            <h1 class="border-bottom">Productos</h1>
+          <div class="col text-center section-header">
+            <h3 class="">Últimos Productos</h3>
           </div>
         </div>
         <div class="row">
@@ -91,8 +91,8 @@
      <section class="mt-4 mb-4">
       <div class="container">
         <div class="row">
-          <div class="col text-center">
-            <h1 class="border-bottom">Mascotas</h1>
+          <div class="col text-center section-header">
+            <h3 class="">Mascotas en adopción</h3>
           </div>
         </div>
         <div class="row">
@@ -117,7 +117,7 @@
                   href="{{ asset( 'storage/archivos/'. $mascota->hogar->user->id . '/' . $mascota->foto ) }}"
                   @endif 
                   rel="lightbox">Ampliar imagen</a></p>
-                <p><a href="{{ route('ver.tienda' , [$mascota->hogar->slug]) }}">Visitar hogar</a></p>
+                <p><a href="{{ route('ver.hogar' , [$mascota->hogar->slug]) }}">Visitar hogar</a></p>
                   
 
               </div>

@@ -22,6 +22,8 @@ Route::get('/nosotros/{pagina}', 'HomeController@nosotros')->name('nosotros.pagi
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/tiendas', 'HomeController@tiendas')->name('tiendas');
 Route::get('/hogares', 'HomeController@hogares')->name('hogares');
+Route::get('/foro', 'HomeController@blog')->name('blog');
+Route::get('/foro/{slug}', 'HomeController@verBlog')->name('ver.blog');
 Route::get('/productos', 'HomeController@productos')->name('productos');
 Route::get('/mascotas', 'HomeController@mascotas')->name('mascotas');
 Route::get('/tienda/{slug}', 'HomeController@tienda')->name('ver.tienda');
@@ -31,6 +33,7 @@ Route::get('/buscar/tiendas', 'HomeController@buscarTienda')->name('buscar.tiend
 Route::get('/buscar/hogares', 'HomeController@buscarHogar')->name('buscar.hogar.nombre');
 Route::get('/buscar/productos', 'HomeController@buscarProductos')->name('buscar.producto.nombre');
 Route::get('/buscar/mascotas', 'HomeController@buscarMascotas')->name('buscar.mascota.nombre');
+Route::get('/buscar/post', 'HomeController@buscarPost')->name('buscar.post.nombre');
 
 Route::get('/agregarcarro/{id}', 'UsuarioController@agregarCarrito')->name('agregar.carrito');
 Route::get('/eliminarcarro/{id}', 'UsuarioController@eliminarCarrito')->name('eliminar.carrito');
@@ -54,6 +57,13 @@ Route::prefix('usuario')->middleware('auth')->group( function () {
 		Route::get('/pedidos/orden/{id}', 'UsuarioController@verOrden')->name('usuario.ver.orden');
 
 		Route::post('/favoritos/actualizar', 'UsuarioController@actualizarFavorito')->name('usuario.agregar.favorito');
+		Route::post('/comentar', 'UsuarioController@comentar')->name('usuario.comentar');
+		Route::get('/foro', 'UsuarioController@blog')->name('usuario.blog');
+		Route::get('/foro/nuevo', 'UsuarioController@crearPost')->name('usuario.crear.post');
+		Route::get('/foro/editar/{slug}', 'UsuarioController@editarPost')->name('usuario.editar.post');
+		Route::post('/foro/crear', 'UsuarioController@registrarPost')->name('usuario.registrar.post');
+		Route::post('/foro/actualizar/{slug}', 'UsuarioController@actualizarPost')->name('usuario.actualizar.post');
+		Route::post('/foro/comentar/{id}', 'UsuarioController@comentarPost')->name('usuario.comentar.post');
 	});
 
 Route::prefix('panel')->middleware('auth')->middleware('role:hogar|negocio')->group( function () {

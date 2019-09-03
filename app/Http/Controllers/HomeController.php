@@ -12,6 +12,7 @@ use App\Mascota;
 use App\Ciudad;
 use App\Comuna;
 use App\Clase;
+use App\Post;
 
 class HomeController extends Controller
 {
@@ -28,70 +29,98 @@ class HomeController extends Controller
         return view('home' , compact('tiendas' , 'productos' , 'mascotas'));
     }
 
+    public function blog()
+    {
+        $postRef = new Post();
+        $posts = $postRef->posts();
+
+        return view('blog.home' , compact('posts'));
+    }
+
+    public function verBlog($slug)
+    {
+        $post = Post::where('slug' , $slug)->firstOrFail();
+
+        return view('blog.blog' , compact('post'));
+    }
+
+    public function buscarPost(Request $request)
+    {
+        $postRef = new Post();
+
+        if($request->nombre != null){
+
+            $postRef = $postRef->where('titulo' , 'LIKE' , "%$request->nombre%")
+                                    ->orWhere('mensaje' , 'LIKE' , "%$request->nombre%");
+            
+        }
+
+        $posts = $postRef->get();
+
+        return view('blog.home' , compact('posts'));
+    }
+
     public function buscarTienda(Request $request)
     {
-        if($request->has('nombre')){
+        $tiendasRef = new Negocio();
 
-            $tiendasRef = new Negocio();
-            $tiendas = $tiendasRef->where('nombre' , 'LIKE' , "%$request->nombre%")->get();
+        if($request->nombre != null){
 
-            return view('tiendas' , compact('tiendas'));
+            $tiendasRef = $tiendasRef->where('nombre' , 'LIKE' , "%$request->nombre%");
+            
         }
 
-        if($request->has('ciudad')){
+        if($request->ciudad != null){
 
             $ciudad = Ciudad::where('slug' , $request->ciudad)->first();
-            $tiendasRef = new Negocio();
-            $tiendas = $tiendasRef->where('ciudad_id' , $ciudad->id)->get();
-            return view('tiendas' , compact('tiendas'));
+            $tiendasRef = $tiendasRef->where('ciudad_id' , $ciudad->id);
         }
 
-        if($request->has('comuna')){
+        if($request->comuna != null){
 
             $comuna = Comuna::where('slug' , $request->comuna)->first();
-            $tiendasRef = new Negocio();
-            $tiendas = $tiendasRef->where('comuna_id' , $comuna->id)->get();
-            return view('tiendas' , compact('tiendas'));
+            $tiendasRef = $tiendasRef->where('comuna_id' , $comuna->id);
+            
         }
 
-        if($request->has('tipo')){
+        if($request->tipo != null){
 
             $tipo = Clase::where('slug' , $request->tipo)->first();
-            $tiendasRef = new Negocio();
-            $tiendas = $tiendasRef->where('clase_id' , $tipo->id)->get();
-            return view('tiendas' , compact('tiendas'));
+            
+            $tiendasRef = $tiendasRef->where('clase_id' , $tipo->id);
         }
 
-        return redirect('tiendas');
+        $tiendas = $tiendasRef->get();
+
+        return view('tiendas' , compact('tiendas'));
     }
 
     public function buscarHogar(Request $request)
     {
-        if($request->has('nombre')){
+        $tiendasRef = new Hogar();
 
-            $hogarRef = new Hogar();
-            $tiendas = $hogarRef->where('nombre' , 'LIKE' , "%$request->nombre%")->get();
+        if($request->nombre != null){
 
-            return view('hogares' , compact('tiendas'));
+            $tiendasRef = $tiendasRef->where('nombre' , 'LIKE' , "%$request->nombre%");
+            
         }
 
-        if($request->has('ciudad')){
+        if($request->ciudad != null){
 
             $ciudad = Ciudad::where('slug' , $request->ciudad)->first();
-            $hogarRef = new Hogar();
-            $tiendas = $hogarRef->where('ciudad_id' , $ciudad->id)->get();
-            return view('hogares' , compact('tiendas'));
+            $tiendasRef = $tiendasRef->where('ciudad_id' , $ciudad->id);
         }
 
-        if($request->has('comuna')){
+        if($request->comuna != null){
 
             $comuna = Comuna::where('slug' , $request->comuna)->first();
-            $hogarRef = new Hogar();
-            $tiendas = $hogarRef->where('comuna_id' , $comuna->id)->get();
-            return view('hogares' , compact('tiendas'));
+            $tiendasRef = $tiendasRef->where('comuna_id' , $comuna->id);
+            
         }
 
-        return redirect('hogares');
+        $tiendas = $tiendasRef->get();
+
+        return view('hogares' , compact('tiendas'));
     }
 
     public function buscarProductos(Request $request)
@@ -176,7 +205,10 @@ class HomeController extends Controller
     public function hogar($slug)
     {
         $hogar = Hogar::where('slug' , $slug)->first();
-        //$productos = $tienda->productos;
+        if($hogar == null)
+        {
+            return redirect('/');
+        }
         
         return view('hogar' , compact('hogar'));
     }
@@ -184,8 +216,18 @@ class HomeController extends Controller
     public function tienda($slug)
     {
         $tienda = Negocio::where('slug' , $slug)->first();
-        $carrito = Cart::content();
+        if($tienda == null)
+        {
+            return redirect('/');
+        }
+
         $productos = $tienda->productos;
+        $productosId = [];
+        foreach ($productos as $key => $producto) {
+            $productosId[$key] = $producto->id;
+        }
+        
+        $carrito = Cart::content()->whereIn('id' , $productosId);
         $total = 0;
         $totalMobile = 0;
 

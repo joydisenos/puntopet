@@ -5,22 +5,41 @@
     @slot('titulo' , 'Mascotas')
 @endcomponent
 
+<div class="text-white bg-primary text-right p-2 rounded-right busqueda-toggle" id="btn-filtro">
+					<i class="fa fa-filter"></i>
+			</div>
+			
 <div class="container">
 	<div class="row">
+
+		<div class="col-md-2 pt-4 pb-4 mt-4 mb-0" id="filtros-buscar">
+
+			
+			
+			<div class="row">
+				<div class="col">
+					<h6 class="text-center color-primary"><strong>Búsqueda</strong></h6>
+					<hr class="color-primary">
+				<form action="{{ route('buscar.mascota.nombre') }}" class="form-buscar">
+					<input type="text" placeholder="Nombre" class="form-control bg-primary text-white mb-3" value="{{ isset($_GET['nombre']) ? $_GET['nombre'] : '' }}" name="nombre">
+
+					
+
+					<button type="submit" class="btn btn-primary">Buscar</button>
+				</form>
+				
+				
+
+				</div>
+			</div>
+
+			
+			
+		</div>
 		
 		<div class="col pt-4 pb-4 mt-4 mb-4">
 
-			<div class="row mb-4">
-				<div class="col">
-					<h6>Búsqueda:</h6>
-				</div>
-				<div class="col">
-					<form action="{{ route('buscar.mascota.nombre') }}" class="form-buscar">
-						<input type="text" placeholder="Nombre" class="form-control" name="nombre">
-					</form>
-				</div>
-				
-			</div>
+			
 			
 			<div class="row">
 
@@ -54,7 +73,7 @@
                   href="{{ asset( 'storage/archivos/'. $mascota->hogar->user->id . '/' . $mascota->foto ) }}"
                   @endif 
                   rel="lightbox">Ampliar imagen</a></p>
-                <p><a href="{{ route('ver.tienda' , [$mascota->hogar->slug]) }}">Visitar hogar</a></p>
+                <p><a href="{{ route('ver.hogar' , [$mascota->hogar->slug]) }}">Visitar hogar</a></p>
                   
 
               </div>

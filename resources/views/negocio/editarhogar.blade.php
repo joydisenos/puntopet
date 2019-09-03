@@ -43,7 +43,7 @@
 
 					<div class="row mb-4">
 						<div class="col">
-							<button class="btn btn-primary">
+							<button class="btn btn-primary" type="submit">
 								Actualizar
 							</button>
 						</div>
@@ -127,10 +127,12 @@
 	container: 'map', 
 	style: 'mapbox://styles/mapbox/streets-v11',
 	center: [long, lat], 
-	zoom: 9 
+	zoom: 13
 	});
 
-	markerCurrent = new mapboxgl.Marker()
+	markerCurrent = new mapboxgl.Marker({
+		draggable: true
+	})
 		.setLngLat([long, lat])
 		.addTo(map2);
 
@@ -148,5 +150,14 @@
     
 
     });
+
+     function onDragEnd() {
+		lngLat = markerCurrent.getLngLat();
+		
+		$('#lat').val(lngLat.lat);
+	    $('#long').val(lngLat.lng);
+	}
+	 
+	markerCurrent.on('dragend', onDragEnd);
 </script>
 @endsection

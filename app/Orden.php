@@ -42,6 +42,10 @@ class Orden extends Model
                 $estatus = "Enviado/Entregado";
                 break;
 
+            case 3:
+                $estatus = "Comentado";
+                break;
+
             case 0:
                 $estatus = "Rechazado";
                 break;

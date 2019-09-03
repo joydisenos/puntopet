@@ -30,7 +30,7 @@
 				@if($legal->valor != null)
 				<div class="row">
 					<div class="col">
-						<input type="nomber" min="0" step="any" name="valor" class="form-control" value="{{ $legal->valor }}" required>
+						<input type="text" min="0" step="any" name="valor" class="form-control" value="{{ $legal->valor }}" required>
 					</div>
 				</div>
 				@endif

@@ -14,6 +14,8 @@ use App\Producto;
 use App\Orden;
 use App\Compra;
 use App\Favorito;
+use App\Comentario;
+use App\Post;
 
 class UsuarioController extends Controller
 {
@@ -38,6 +40,129 @@ class UsuarioController extends Controller
     public function membresia()
     {
         return view('user.membresia');
+    }
+
+    public function blog()
+    {
+        $posts = Auth::user()->posts;
+
+        return view('blog.listapost' , compact('posts'));
+    }
+
+    public function crearPost()
+    {
+        return view('blog.nuevopost');
+    }
+
+    public function editarPost($slug)
+    {
+        $post = Post::where('slug' , $slug)->firstOrFail();
+
+        if($post->user_id != Auth::user()->id)
+        {
+            return redirect()->back();
+        }
+        
+        return view('blog.editarpost' , compact('post'));
+    }
+
+    public function actualizarPost($slug , Request $request)
+    {
+        $post = Post::where('slug' , $slug)->firstOrFail();
+        
+        if($post->user_id != Auth::user()->id)
+        {
+            return redirect()->back();
+        }
+        
+        $datos = $request->except(['_token' , 'imagen']);
+
+        if( $request->hasFile('imagen') )
+        {
+            $rutaFoto = 'archivos/'. Auth::user()->id;
+            $foto = $request->file('imagen');
+            $nombreFoto = $foto->getClientOriginalName();
+            $request->file('imagen')->storeAs($rutaFoto, $nombreFoto, 'public');
+            $datos['imagen'] = $nombreFoto;
+        }
+
+
+        $post->update($datos);
+
+        return redirect()->route('usuario.blog')->with('status' , 'Post Actualizado');
+    }
+
+    public function registrarPost(Request $request)
+    {
+        $validatedData = $request->validate([
+        'titulo' => 'required|max:255',
+        'mensaje' => 'required',
+        ]);
+
+        $data = $request->except(['_token' , 'imagen']);
+        $data['user_id'] = Auth::user()->id;
+
+        $rev = Post::where('slug' , str_slug($request->titulo))->first();
+         if($rev == null)
+         {
+            $slug = str_slug($request->titulo);
+        }else{
+            $i = 0;
+            while ($rev != null) {
+                $rev = Post::where('slug' ,  str_slug($request->titulo) . $i )->first();
+                $slug = str_slug($request->titulo) . $i;
+                $i++;
+            }
+        }
+
+        if( $request->hasFile('imagen') )
+        {
+            $rutaFoto = 'archivos/'. Auth::user()->id;
+            $foto = $request->file('imagen');
+            $nombreFoto = $foto->getClientOriginalName();
+            $request->file('imagen')->storeAs($rutaFoto, $nombreFoto, 'public');
+            $data['imagen'] = $nombreFoto;
+        }
+
+        $data['slug'] = $slug;
+
+        Post::create($data);
+
+        return redirect()->route('usuario.blog')->with('status' , 'Post Creado');
+        
+
+    }
+
+    public function comentarPost(Request $request , $id)
+    {
+        $validatedData = $request->validate([
+        'titulo' => 'required|max:255',
+        'mensaje' => 'required',
+        ]);
+
+        $data = $request->except('_token');
+        
+        $data['user_id'] = Auth::user()->id;
+        $data['post_id'] = $id;
+
+        $rev = Post::where('slug' , str_slug($request->titulo))->first();
+         if($rev == null)
+         {
+            $slug = str_slug($request->titulo);
+        }else{
+            $i = 0;
+            while ($rev != null) {
+                $rev = Post::where('slug' ,  str_slug($request->titulo) . $i )->first();
+                $slug = str_slug($request->titulo) . $i;
+                $i++;
+            }
+        }
+
+        $data['slug'] = $slug;
+
+        Post::create($data);
+
+        return redirect()->back()->with('status' , 'Comentario Enviado!');
     }
 
     public function membresiaPet()
@@ -117,8 +242,17 @@ class UsuarioController extends Controller
             $compra = Compra::create($productoRequest);
         }
 
+        Cart::destroy();
+
         return redirect()->route('usuario.pedidos')->with('status' , 'Compra registrada');
 
+    }
+
+    public function eliminarCarrito($row)
+    {
+        Cart::remove($row);
+
+        return redirect()->back()->with('status' , 'Producto eliminado');
     }
 
     public function agregarCarrito($id ,Request $request)
@@ -277,5 +411,33 @@ class UsuarioController extends Controller
         }
 
         return response()->json(['data' => 'actualizado' , 'estatus' => $estatus]);
+    }
+
+    public function comentar(Request $request)
+    {
+        $validatedData = $request->validate([
+        'comentario' => 'required|max:255|min:3',
+        'puntos' => 'required'
+        ]);
+
+        if($request->has('orden_id'))
+        {
+            $orden = Orden::findOrFail($request->orden_id);
+            $orden->estatus = 3;
+            $orden->save();
+            $data['orden_id'] = $orden->id;
+            $data['negocio_id'] = $orden->negocio->id;
+        }else{
+
+            $data['negocio_id'] = $request->negocio_id;
+        }
+
+        $data['comentario'] = $request->comentario;
+        $data['puntos'] = $request->puntos;
+        $data['user_id'] = $request->user_id;
+
+        $comentario = Comentario::create($data);
+
+        return redirect()->back()->with('status' , 'Comentario publicado');
     }
 }

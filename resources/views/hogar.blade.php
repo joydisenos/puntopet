@@ -21,7 +21,13 @@
 		right: 10px;
 	}
 	.nav-pills .nav-link.active, .show>.nav-pills .nav-link{
+		background-color: #ffffff !important;
+		border-radius: 0px;
+		color: #18D26E;
+	}
+	.nav-pills .nav-link{
 		background-color: #18D26E !important;
+		color: #ffffff;
 	}
 	.logo-tienda{
 		max-width: 50px;
@@ -36,7 +42,6 @@
 	#map{
 		height: 300px;
 		width: 100%;
-		margin-bottom: 30px;
 		overflow: hidden;
 	}
 	.map-container{
@@ -53,6 +58,9 @@
 	}
 	.dir p{
 		margin: 0px;
+	}
+	.botones{
+		background: #18D26E;
 	}
 	@if($hogar->foto_local != null )
 	.header-panel{
@@ -81,26 +89,47 @@
     	
     @endslot
 @endcomponent
+@include('includes.compartir')
 
-<div class="container">
-	<div class="row">
-		<div class="col pt-4 pb-4 mt-4 mb-4">
+<section class="botones">
 
-			<div class="row mb-4">
-				<div class="col">
-					<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+	<div class="container">
+		<div class="row">
+
+			<div class="col">
+					<ul class="nav nav-pills" id="pills-tab" role="tablist">
 					  <li class="nav-item">
-					    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#mascotas" role="tab" aria-controls="pills-home" aria-selected="true">Mascotas</a>
+					    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#mascotas" role="tab" aria-controls="pills-home" aria-selected="true">Mascotas en adopción</a>
 					  </li>
 					  <li class="nav-item">
 					    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#informacion" role="tab" aria-controls="pills-profile" aria-selected="false">Información</a>
 					  </li>
 					</ul>
 				</div>
-			</div>
+			
+		</div>
+	</div>
+	
+</section>
 
+<div class="container">
+	<div class="row">
+		<div class="col pt-4 pb-4 mt-4 mb-4">
+
+			
 			<div class="tab-content" id="pills-tabContent">
 					<div class="tab-pane fade show active" id="mascotas" role="tabpanel" aria-labelledby="pills-home-tab">
+
+								
+				@if($hogar->mascotas->count() > 0)
+				<div class="row">
+					<div class="col">
+								<header class="section-header">
+					  				<h3>Mascotas en adopción</h3>
+					  			</header>
+					</div>
+				</div>
+				@endif
 
 								<div class="row mb-4">
 									
@@ -140,76 +169,84 @@
 					<div class="tab-pane fade" id="informacion" role="tabpanel" aria-labelledby="pills-profile-tab">
 
 					  	
-						<div class="row mb-4">
-					  		<div class="col-md-6">
-					  			@if($hogar->foto_local != null)
-								 <img src="{{ asset( 'storage/archivos/'. $hogar->user->id . '/' . $hogar->foto_local) }}" class="img-fluid mr-1" alt="Logo {{ $hogar->nombre }}">
-								@else
-								 <div class="img-cont" style="max-width: 300px; margin: 0 auto">
-								 	<img src="{{ asset('images/paw.png') }}" class="img-fluid mr-1" alt="Logo {{ $hogar->nombre }}">
-								 </div>
-								@endif
-								
-					  		</div>
-					  		<div class="col-md-6">
-								
-								@if($hogar->descripcion != null)
-									<p>{{ $hogar->descripcion }}</p>
-								@endif
-					  			<h6>Contacto:</h6>
-					  			@if($hogar->email != null)
-					  				<p><strong>Email:</strong> <a href="mailto:{{ $hogar->email }}">{{ $hogar->email }}</a></p>
-					  			@endif
+						<section id="skills" class="p-0">
+					      <div class="container">
 
-					  			@if($hogar->telefono != null)
-					  				<p><strong>Teléfono:</strong> {{ $hogar->telefono }}</p>
-					  			@endif
+					      	<div class="row">
+					      		<div class="col-md-4">
+					      			@if($hogar->logo_local != null)
+									 <img src="{{ asset( 'storage/archivos/'. $hogar->user->id . '/' . $hogar->logo_local) }}" style="max-width: 100px;" class="mr-4 float-left" alt="Logo {{ $hogar->nombre }}">
+									@else
+									 <img src="{{ asset('images/paw.png') }}" style="max-width: 100px;" class="mr-4 float-left" alt="Logo {{ $hogar->nombre }}">
+									@endif
+					      		</div>
+					      		<div class="col-md-8">
+					      			 <header class="section-header">
 
-					  			@if($hogar->contacto != null)
-					  				<p><strong>Persona de contacto:</strong> {{ $hogar->contacto }}</p>
-					  			@endif
+					        	 
+
+					          <h3>{{ title_case($hogar->nombre) }}</h3>
+
+					          <p>{{ $hogar->descripcion }}</p>
+
+					          @if($hogar->twitter != null || $hogar->facebook != null || $hogar->instagram != null || $hogar->googleplus != null || $hogar->linkedin != null )
+							  	<div class="row mb-4">
+							  		<div class="col text-right">
+							  			<div class="social-links">
+							  			@if($hogar->twitter != null)
+							              <a href="{{ $hogar->twitter }}" class="twitter p-2 background-primary text-white"><i class="fa fa-twitter"></i></a>
+							            @endif
+
+							            @if($hogar->facebook != null)
+							              <a href="{{ $hogar->facebook }}" class="facebook p-2 background-primary text-white"><i class="fa fa-facebook"></i></a>
+							            @endif
+
+							            @if($hogar->instagram != null)
+							              <a href="{{ $hogar->instagram }}" class="instagram p-2 background-primary text-white"><i class="fa fa-instagram"></i></a>
+							            @endif
+
+							            @if($hogar->googleplus != null)
+							              <a href="{{ $hogar->googleplus }}" class="google-plus p-2 background-primary text-white"><i class="fa fa-google-plus"></i></a>
+							            @endif
+
+							            @if($hogar->linkedin != null)
+							              <a href="{{ $hogar->linkedin }}" class="linkedin p-2 background-primary text-white"><i class="fa fa-linkedin"></i></a>
+							            @endif
+							            </div>
+							  		</div>
+							  	</div>
+							  	@endif
+					        </header>
+					      		</div>
+					      	</div>
+
+					       
+
 					  			
-					  		</div>
-					  	</div>
+					  			<div class="row mb-4">
+					  				<div class="col">
+					  					@if($hogar->email != null)
+							  				<p class="ml-4 mb-1"><i class="fa fa-envelope color-primary mr-4"></i> <a href="mailto:{{ $hogar->email }}">{{ $hogar->email }}</a></p>
+							  			@endif
 
-					  	@if($hogar->direccion != null)
-					  	<div class="row mb-4">
-					  		<div class="col map-container">
-					  			<input type="hidden" name="latitud" id="lat" value="{{ $hogar->latitud }}">
-								<input type="hidden" name="longitud" id="long" value="{{ $hogar->longitud }}">
-					  			<div id="map"></div>
-					  			<div class="dir"><p>{{ $hogar->direccion }}</p></div>
-					  		</div>
-					  	</div>
-					  	@endif
+							  			@if($hogar->telefono != null)
+							  				<p class="ml-4 mb-1"><i class="fa fa-phone color-primary mr-4"></i> {{ $hogar->telefono }}</p>
+							  			@endif
 
-						@if($hogar->twitter != null || $hogar->facebook != null || $hogar->instagram != null || $hogar->googleplus != null || $hogar->linkedin != null )
-					  	<div class="row mb-4">
-					  		<div class="col text-right">
-					  			<div class="social-links">
-					  			@if($hogar->twitter != null)
-					              <a href="{{ $hogar->twitter }}" class="twitter rounded p-2 background-primary text-white"><i class="fa fa-twitter"></i></a>
-					            @endif
+							  			@if($hogar->contacto != null)
+							  				<p class="ml-4 mb-1"><i class="fa fa-user color-primary mr-4"></i> {{ $hogar->contacto }}</p>
+							  			@endif
+					  				</div>
+					  			</div>
 
-					            @if($hogar->facebook != null)
-					              <a href="{{ $hogar->facebook }}" class="facebook rounded p-2 background-primary text-white"><i class="fa fa-facebook"></i></a>
-					            @endif
+					  			
 
-					            @if($hogar->instagram != null)
-					              <a href="{{ $hogar->instagram }}" class="instagram rounded p-2 background-primary text-white"><i class="fa fa-instagram"></i></a>
-					            @endif
+					        
 
-					            @if($hogar->googleplus != null)
-					              <a href="{{ $hogar->googleplus }}" class="google-plus rounded p-2 background-primary text-white"><i class="fa fa-google-plus"></i></a>
-					            @endif
+					      </div>
+					    </section>
 
-					            @if($hogar->linkedin != null)
-					              <a href="{{ $hogar->linkedin }}" class="linkedin rounded p-2 background-primary text-white"><i class="fa fa-linkedin"></i></a>
-					            @endif
-					            </div>
-					  		</div>
-					  	</div>
-					  	@endif
+					  	
 						
 						
 						
@@ -229,6 +266,8 @@
 						</div>
 						@endforeach
 						</div>
+
+						
 						
 						
 
@@ -243,6 +282,19 @@
 				
 	</div>
 </div>
+
+<section class="map">
+	@if($hogar->direccion != null)
+					  	
+					  		<div class="map-container">
+					  			<input type="hidden" name="latitud" id="lat" value="{{ $hogar->latitud }}">
+								<input type="hidden" name="longitud" id="long" value="{{ $hogar->longitud }}">
+					  			<div id="map"></div>
+					  			<div class="dir"><p>{{ $hogar->direccion }}</p></div>
+					  		</div>
+					
+					  	@endif
+</section>
 @endsection
 @section('scripts')
 <script src='https://api.mapbox.com/mapbox-gl-js/v1.0.0/mapbox-gl.js'></script>

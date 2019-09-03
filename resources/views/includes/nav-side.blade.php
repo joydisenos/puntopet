@@ -110,6 +110,12 @@
 
 		@endrole
 
+		<a href="{{ route('usuario.blog') }}">
+		  	<li class="list-group-item {{ (URL::current() == route('usuario.blog')) ? 'active' : ''}}">
+			  	<i class="fa fa-users mr-3" aria-hidden="true"></i> Foro
+			</li>
+		</a>
+
 		<a href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

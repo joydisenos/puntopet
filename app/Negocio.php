@@ -97,4 +97,36 @@ class Negocio extends Model
 
         return $track;
     }
+
+    public function comentarios()
+    {
+        return $this->hasMany(Comentario::class , 'negocio_id')->orderBy('id' , 'DESC');
+    }
+
+    public function getComentarios()
+    {
+        return Comentario::where('negocio_id' , $this->id )->orderBy('id' , 'DESC')->paginate(5);
+    }
+
+    public function verEstadisticas()
+    {
+        $total = $this->comentarios->count();
+
+        $excelente = $this->comentarios->where('puntos' , 5)->count();
+        $muyBueno = $this->comentarios->where('puntos' , 4)->count();
+        $bueno = $this->comentarios->where('puntos' , 3)->count();
+        $regular = $this->comentarios->where('puntos' , 2)->count();
+        $malo = $this->comentarios->where('puntos' , 1)->count();
+
+        $data = new \stdClass();
+        $data->excelente = $total > 0 ? ($excelente * 100) / $total : 0;
+        $data->muybueno = $total > 0 ? ($muyBueno * 100) / $total : 0;
+        $data->bueno = $total > 0 ? ($bueno * 100) / $total : 0;
+        $data->regular = $total > 0 ? ($regular * 100) / $total : 0;
+        $data->malo = $total > 0 ? ($malo * 100) / $total : 0;
+        $data->total = $total;
+        $data->promedio = $this->comentarios->avg('puntos');
+
+        return $data;
+    }
 }

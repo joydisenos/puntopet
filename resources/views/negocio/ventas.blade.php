@@ -139,7 +139,7 @@
 
 				        <div class="row justify-content-center mb-3">
 				        	<div class="col-10">
-				        		<button class="btn btn-primary btn-block">
+				        		<button class="btn btn-primary btn-block" type="submit">
 				        			Agregar
 				        		</button>
 				        	</div>
@@ -181,7 +181,7 @@
 
 				        <div class="row justify-content-center mb-3">
 				        	<div class="col-10">
-				        		<button class="btn btn-primary btn-block">
+				        		<button class="btn btn-primary btn-block" type="submit">
 				        			Agregar
 				        		</button>
 				        	</div>
